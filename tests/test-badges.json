@@ -1,0 +1,94 @@
+[
+  {
+    "file_name": "accuracy.svg",
+    "left_text": "accuracy",
+    "right_text": "70%",
+    "right_color": "yellow",
+    "logo": "data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" height=\"120\" width=\"120\"><circle cx=\"60\" cy=\"60\" r=\"60\" fill=\"#c00\" /><circle cx=\"60\" cy=\"60\" r=\"50\" fill=\"#ddd\" /><circle cx=\"60\" cy=\"60\" r=\"40\" fill=\"#c00\" /><circle cx=\"60\" cy=\"60\" r=\"30\" fill=\"#ddd\" /><circle cx=\"60\" cy=\"60\" r=\"20\" fill=\"#c00\" /></svg>"
+  },
+  {
+    "file_name": "build-passing.svg",
+    "left_text": "build",
+    "right_text": "passing",
+    "right_color": "green"
+  },
+  {
+    "file_name": "build-failure.svg",
+    "left_text": "build",
+    "right_text": "failure",
+    "right_color": "#c00"
+  },
+  {
+    "file_name": "build-running.svg",
+    "left_text": "build",
+    "right_text": "running",
+    "right_color": "blue"
+  },
+  {
+    "file_name": "complete.svg",
+    "left_text": "complete",
+    "right_text": "example",
+    "left_color": "green",
+    "right_color": "#fb3",
+    "left_link": "http://www.complete.com/",
+    "right_link": "http://www.example.com",
+    "logo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAD0lEQVQI12P4zwAD/xkYAA/+Af8iHnLUAAAAAElFTkSuQmCC"
+  },
+  {
+    "file_name": "github.svg",
+    "left_text": "github",
+    "right_text": "pybadges",
+    "right_color": "blue",
+    "whole_link": "TODO"
+  },
+  {
+    "file_name": "license.svg",
+    "left_text": "license",
+    "right_text": "APACHE 2.0",
+    "right_color": "blue",
+    "left_link": "https://opensource.org/licenses",
+    "right_link": "https://opensource.org/licenses/Apache-2.0"
+  },
+  {
+    "file_name": "pip.svg",
+    "left_text": "pip install",
+    "right_text": "pybadges",
+    "right_color": "blue",
+    "left_link": "https://pip.pypa.io/en/stable/installing/",
+    "right_link": "https://pypi.org/project/pybadges/"
+  },
+  {
+    "file_name": "python.svg",
+    "left_text": "python",
+    "right_text": "3.2, 3.3, 3.4, 3.5, 3.6",
+    "logo": "https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/python.svg",
+    "whole_link": "https://www.python.org/"
+  },
+  {
+    "file_name": "saying-arabic.svg",
+    "left_text": "saying",
+    "right_text": " \u0623\u0628\u0627\u062F \u0627\u0644\u0644\u0647 \u062E\u0636\u0631\u0627\u0621\u0647\u0645 \u0627\u0628\u0630\u0644 \u0644\u0635\u062F\u064A\u0642\u0643 \u062F\u0645\u0643 \u0648\u0645\u0627\u0644\u0643"
+  },
+  {
+    "file_name": "saying-chinese.svg",
+    "left_text": "saying",
+    "right_text": "\u4E0D\u805E\u4E0D\u82E5\u805E\u4E4B\uFF0C\u805E\u4E4B\u4E0D\u82E5\u898B\u4E4B\uFF0C\u898B\u4E4B\u4E0D\u82E5\u77E5\u4E4B\uFF0C\u77E5\u4E4B\u4E0D\u82E5\u884C\u4E4B\uFF1B\u5B78\u81F3\u65BC\u884C\u4E4B\u800C\u6B62\u77E3"
+  },
+  {
+    "file_name": "saying-russian.svg",
+    "left_text": "saying",
+    "right_text": "\u0411\u0435\u0437 \u0442\u0440\u0443\u0434\u0430\u0301 \u043D\u0435 \u0432\u044B\u0301\u0442\u0430\u0449\u0438\u0448\u044C \u0438 \u0440\u044B\u0301\u0431\u043A\u0443 \u0438\u0437 \u043F\u0440\u0443\u0434\u0430\u0301."
+  },
+  {
+    "file_name": "status.svg",
+    "left_text": "status",
+    "right_text": "\u263A"
+  },
+  {
+    "file_name": "tests.svg",
+    "left_text": "tests",
+    "right_text": "231 passed, 1 failed, 1 skipped",
+    "left_color": "blue",
+    "right_color": "orange"
+  }
+]
