@@ -14,11 +14,34 @@
 
 """A setup module for pybadges."""
 
+import base64
+import re
+
 from setuptools import setup
+
+
+def get_long_description():
+    """Transform README.md into a usable long description.
+
+    Replaces relative references to svg images to absolute https references.
+    """
+
+    with open('README.md') as f:
+        read_me = f.read()
+
+    def replace_relative_with_absolute(match):
+        svg_path = match.group(0)[1:-1]
+        return ('(https://github.com/google/pybadges/raw/master/'
+                '%s?sanitize=true)' % svg_path)
+
+    return re.sub(r'\(tests/golden-images/.*?\.svg\)',
+                  replace_relative_with_absolute,
+                  read_me)
+
 
 setup(
     name='pybadges',
-    version='0.0.1',
+    version='0.0.7',
     author='Brian Quinlan',
     author_email='brian@sweetapp.com',
     classifiers=[
@@ -39,7 +62,8 @@ setup(
     keywords="github gh-badges badge shield status",
     package_data={'pybadges': ['badge-template-full.svg',
                                'default-widths.json.xz']},
-    long_description="test",
+    long_description=get_long_description(),
+    long_description_content_type='text/markdown',
     install_requires=['Jinja2>=2'],
     extras_require={
         'pil-measurement': ['Pillow>=5'],
