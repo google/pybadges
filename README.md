@@ -26,7 +26,7 @@ pip install pybadges
 
 To test that installation was successful, try:
 ```sh
-python -m pybadges --left-text=build --right-text=failure --right-color=#c00 --browser
+python -m pybadges --left-text=build --right-text=failure --right-color='#c00' --browser
 ```
 
 You will see a badge like this in your browser:
@@ -55,7 +55,7 @@ python -m pybadges \
     --left-text=complete \
     --right-text=example \
     --left-color=green \
-    --right-color=#fb3 \
+    --right-color='#fb3' \
     --left-link=http://www.complete.com/ \
     --right-link=http://www.example.com \
     --logo='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAD0lEQVQI12P4zwAD/xkYAA/+Af8iHnLUAAAAAElFTkSuQmCC' \
