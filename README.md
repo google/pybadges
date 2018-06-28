@@ -1,13 +1,13 @@
 # pybadges
 
-pybadges is a Python library and command line tools that allows you to create
-Git-hub styles badges as SVG images. For example:
+pybadges is a Python library and command line tool that allows you to create
+Github-style badges as SVG images. For example:
 
 ![pip installation](tests/golden-images/pip.svg)
 ![pip installation](tests/golden-images/license.svg)
 ![pip installation](tests/golden-images/build-passing.svg)
 
-The aesthetics of the generated badges matches the  visual design of Shields badges
+The aesthetics of the generated badges matches the  visual design found in this
 [specification](https://github.com/badges/shields/blob/master/spec/SPECIFICATION.md).
 
 The implementation of the library was heavily influenced by
@@ -15,10 +15,6 @@ The implementation of the library was heavily influenced by
 [gh-badges](https://github.com/badges/shields#using-the-badge-library) library.
 
 ## Getting Started
-
-These instructions will get you a copy of the project up and running on your
-local machine for development and testing purposes. See deployment for notes on
-how to deploy the project on a live system.
 
 ### Installing
 
@@ -33,7 +29,7 @@ To test that installation was successful, try:
 python -m pybadges --left-text=build --right-text=failure --right-color=#c00 --browser
 ```
 
-You will see a badge like this in your browser or other image viewer:
+You will see a badge like this in your browser:
 
 ![pip installation](tests/golden-images/build-failure.svg)
 
@@ -46,8 +42,8 @@ writing Python code.
 
 ### Command line usage
 
-Complete documentation of pybadges command arguments can be found using the help
-argument:
+Complete documentation of pybadges command arguments can be found using the `--help`
+flag:
 
 ```sh
 python -m pybadges --help
@@ -94,7 +90,7 @@ print(s[:40]) # => <svg height="20" width="191.0" xmlns="ht
 
 The keyword arguments to `badge()` are identical to the command flags names
 described above except with keyword arguments using underscore instead of
-hyphen/minus (e.g. `--left-width` => `left_width=`)
+hyphen/minus (e.g. `--left-text` => `left_text=`)
 
 ### Caveats
 
@@ -120,8 +116,8 @@ hyphen/minus (e.g. `--left-width` => `left_width=`)
 ## Development
 
 ```sh
-git clone TODO
-cd TODO
+git clone https://github.com/google/pybadges.git
+cd pybadges
 python -m virtualenv py
 source py/bin/activate
 # Installs in edit mode and with development dependencies.
