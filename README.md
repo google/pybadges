@@ -118,8 +118,8 @@ hyphen/minus (e.g. `--left-text` => `left_text=`)
 ```sh
 git clone https://github.com/google/pybadges.git
 cd pybadges
-python -m virtualenv py
-source py/bin/activate
+python -m virtualenv venv
+source venv/bin/activate
 # Installs in edit mode and with development dependencies.
 pip install -e .[dev]
 nox
