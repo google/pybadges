@@ -41,7 +41,7 @@ def get_long_description():
 
 setup(
     name='pybadges',
-    version='1.0.0',
+    version='1.0.1',
     author='Brian Quinlan',
     author_email='brian@sweetapp.com',
     classifiers=[
@@ -63,6 +63,7 @@ setup(
                                'default-widths.json.xz']},
     long_description=get_long_description(),
     long_description_content_type='text/markdown',
+    python_requires='>=3',
     install_requires=['Jinja2>=2'],
     extras_require={
         'pil-measurement': ['Pillow>=5'],
