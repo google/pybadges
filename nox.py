@@ -38,8 +38,6 @@ def unit(session):
     """
     session.interpreter = 'python3'
 
-    # Install all test dependencies, then install this package in-place.
-#    session.install('-r', 'requirements-test.txt')
     session.install('-e', '.[dev]')
     # Run py.test against the unit tests.
     session.run(
