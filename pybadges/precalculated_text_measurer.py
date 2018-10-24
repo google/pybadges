@@ -34,7 +34,7 @@ class PrecalculatedTextMeasurer(text_measurer.TextMeasurer):
                  char_to_width: Mapping[str, float],
                  pair_to_kern: Mapping[str, float]):
         """Initializer for PrecalculatedTextMeasurer.
-        
+
         Args:
             default_character_width: the average width, in pixels, of a
                 character in DejaVu Sans 110pt.
