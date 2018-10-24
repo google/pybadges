@@ -41,7 +41,7 @@ def get_long_description():
 
 setup(
     name='pybadges',
-    version='1.1.1',
+    version='1.0.2',
     author='Brian Quinlan',
     author_email='brian@sweetapp.com',
     classifiers=[
