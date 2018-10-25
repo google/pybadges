@@ -60,7 +60,7 @@ setup(
                 'badges',
     keywords="github gh-badges badge shield status",
     package_data={'pybadges': ['badge-template-full.svg',
-                               'default-widths.json.xz']},
+                               'default-widths.json']},
     long_description=get_long_description(),
     long_description_content_type='text/markdown',
     python_requires='>=3',
