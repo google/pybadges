@@ -179,7 +179,7 @@ def main():
     parser.add_argument(
         '--output-json-file',
         default=os.path.join(os.path.dirname(__file__),
-                             'default-widths.json.xz'),
+                             'default-widths.json'),
         help='the path where the generated JSON will be placed. If the ' +
              'provided filename extension ends with .xz then the output' +
              'will be compressed using lzma.')
