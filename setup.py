@@ -41,7 +41,7 @@ def get_long_description():
 
 setup(
     name='pybadges',
-    version='1.0.2',
+    version='1.0.3',
     author='Brian Quinlan',
     author_email='brian@sweetapp.com',
     classifiers=[
@@ -72,4 +72,4 @@ setup(
     },
     license='Apache-2.0',
     packages=["pybadges"],
-    url='https://github.com/brianquinlan/cloud-opensource-python/pybadges')
+    url='https://github.com/google/pybadges')
