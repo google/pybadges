@@ -65,6 +65,16 @@ def main():
         default=None,
         help='a URI reference to a logo to display in the badge')
     parser.add_argument(
+        '--embed-logo',
+        nargs='?',
+        type=lambda x: x.lower() in ['y', 'yes', 't', 'true', '1', ''],
+        const='yes',
+        default='no',
+        help='if the logo is specified then include the image data directly in '
+             'the badge (this will prevent a URL fetch and may work around the '
+             'fact that some browsers do not fetch external image references); '
+             'only works if --logo is a HTTP/HTTPS URI or a file path')
+    parser.add_argument(
         '--browser',
         action='store_true',
         default=False,
@@ -109,7 +119,8 @@ def main():
                            left_color=args.left_color,
                            right_color=args.right_color,
                            logo=args.logo,
-                           measurer=measurer)
+                           measurer=measurer,
+                           embed_logo=args.embed_logo)
 
     if args.browser:
         _, badge_path = tempfile.mkstemp(suffix='.svg')

@@ -32,7 +32,19 @@
     "right_color": "#fb3",
     "left_link": "http://www.complete.com/",
     "right_link": "http://www.example.com",
-    "logo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAD0lEQVQI12P4zwAD/xkYAA/+Af8iHnLUAAAAAElFTkSuQmCC"
+    "logo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAD0lEQVQI12P4zwAD/xkYAA/+Af8iHnLUAAAAAElFTkSuQmCC",
+    "embed_logo": false
+  },
+  {
+    "file_name": "complete.svg",
+    "left_text": "complete",
+    "right_text": "example",
+    "left_color": "green",
+    "right_color": "#fb3",
+    "left_link": "http://www.complete.com/",
+    "right_link": "http://www.example.com",
+    "logo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAD0lEQVQI12P4zwAD/xkYAA/+Af8iHnLUAAAAAElFTkSuQmCC",
+    "embed_logo": true
   },
   {
     "file_name": "github.svg",
@@ -63,6 +75,20 @@
     "right_text": "3.2, 3.3, 3.4, 3.5, 3.6",
     "logo": "https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/python.svg",
     "whole_link": "https://www.python.org/"
+  },
+  {
+    "file_name": "embedded-logo.svg",
+    "left_text": "--embed-logo",
+    "right_text": "yes",
+    "logo": "https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/python.svg",
+    "embed_logo": true
+  },
+  {
+    "file_name": "no-embedded-logo.svg",
+    "left_text": "--embed-logo",
+    "right_text": "no",
+    "logo": "https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/python.svg",
+    "embed_logo": false
   },
   {
     "file_name": "saying-arabic.svg",

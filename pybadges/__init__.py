@@ -30,9 +30,15 @@ gh-badges library
 '<svg...</svg>'
 """
 
-import jinja2
+import base64
+import imghdr
+import mimetypes
 from typing import Optional
+import urllib.parse
 from xml.dom import minidom
+
+import jinja2
+import requests
 
 from pybadges import text_measurer
 from pybadges import precalculated_text_measurer
@@ -70,12 +76,48 @@ def _remove_blanks(node):
         elif x.nodeType == minidom.Node.ELEMENT_NODE:
             _remove_blanks(x)
 
+def _embed_image(url: str) -> str:
+    parsed_url = urllib.parse.urlparse(url)
+
+    if parsed_url.scheme == 'data':
+        return url
+    elif parsed_url.scheme.startswith('http'):
+        r = requests.get(url)
+        r.raise_for_status()
+        content_type = r.headers.get('content-type')
+        if content_type is None:
+            raise ValueError('no "Content-Type" header')
+        content_type, image_type = content_type.split('/')
+        if content_type != 'image':
+            raise ValueError('expected an image, got "{0}"'.format(
+                content_type))
+        image_data = r.content
+    elif parsed_url.scheme:
+        raise ValueError('unsupported scheme "{0}"'.format(parsed_url.scheme))
+    else:
+        with open(url, 'rb') as f:
+            image_data = f.read()
+        image_type = imghdr.what(None, image_data)
+        if not image_type:
+            mime_type, _ = mimetypes.guess_type(url, strict=False)
+            if not mime_type:
+                raise ValueError('not able to determine file type')
+            else:
+                content_type, image_type = mime_type.split('/')
+                if content_type != 'image':
+                    raise ValueError('expected an image, got "{0}"'.format(
+                        content_type or 'unknown'))
+
+    encoded_image = base64.b64encode(image_data).decode('ascii')
+    return 'data:image/{};base64,{}'.format(image_type, encoded_image)
+
 
 def badge(left_text: str, right_text: str, left_link: Optional[str] = None,
           right_link: Optional[str] = None,
           whole_link: Optional[str] = None, logo: Optional[str] = None,
           left_color: str = '#555', right_color: str = '#007ec6',
-          measurer: Optional[text_measurer.TextMeasurer] = None) -> str:
+          measurer: Optional[text_measurer.TextMeasurer] = None,
+          embed_logo: bool = False) -> str:
     """Creates a github-style badge as an SVG image.
 
     >>> badge(left_text='coverage', right_text='23%', right_color='red')
@@ -109,7 +151,11 @@ def badge(left_text: str, right_text: str, left_link: Optional[str] = None,
             https://github.com/badges/shields/blob/master/lib/colorscheme.json
         measurer: A text_measurer.TextMeasurer that can be used to measure the
             width of left_text and right_text.
-
+        embed_logo: If True then embed the logo image directly in the badge.
+            This can prevent an HTTP request and some browsers will not render
+            external image referenced. When True, `logo` must be a HTTP/HTTPS
+            URI or a filesystem path. Also, the `badge` call may raise an
+            exception if the logo cannot be loaded, is not an image, etc.
     """
     if measurer is None:
         measurer = (
@@ -120,6 +166,10 @@ def badge(left_text: str, right_text: str, left_link: Optional[str] = None,
         raise ValueError(
             'whole_link may not bet set with left_link or right_link')
     template = _JINJA2_ENVIRONMENT.get_template('badge-template-full.svg')
+
+    if logo and embed_logo:
+        logo = _embed_image(logo)
+
     svg = template.render(
         left_text=left_text,
         right_text=right_text,

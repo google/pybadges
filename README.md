@@ -59,6 +59,7 @@ python -m pybadges \
     --left-link=http://www.complete.com/ \
     --right-link=http://www.example.com \
     --logo='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAD0lEQVQI12P4zwAD/xkYAA/+Af8iHnLUAAAAAElFTkSuQmCC' \
+    --embed-logo \
     --browser
 ```
 
@@ -76,6 +77,18 @@ python -m pybadges \
 ```
 
 ![pip installation](tests/golden-images/python.svg)
+
+If the `--logo` option is set, the `--embed-logo` option can also be set.
+The `--embed-logo` option causes the content of the URL provided in `--logo`
+to be embedded in the badge rather than be referenced through a link.
+
+The advantage of using this option is an extra HTTP request will not be required
+to render the badge and that some browsers will not load image references at all.
+
+You can see the difference in your browser:
+
+![--embed-logo=yes](tests/golden-images/embedded-logo.svg) ![--embed-logo=no](tests/golden-images/no-embedded-logo.svg)
+
 
 ### Library usage
 
