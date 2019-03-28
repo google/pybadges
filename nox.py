@@ -31,11 +31,7 @@ def lint(session):
 
 @nox.session
 def unit(session):
-    """Run the unit test suite.
-
-    Unit test files should be named like test_*.py and in the same directory
-    as the file being tested.
-    """
+    """Run the unit test suite."""
     session.interpreter = 'python3'
 
     session.install('-e', '.[dev]')
