@@ -41,7 +41,7 @@ def get_long_description():
 
 setup(
     name='pybadges',
-    version='1.1.0',
+    version='2.0.0',
     author='Brian Quinlan',
     author_email='brian@sweetapp.com',
     classifiers=[
@@ -54,6 +54,7 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Operating System :: OS Independent',
     ],
     description='A library and command-line tool for generating Github-style ' +
@@ -63,11 +64,11 @@ setup(
                                'default-widths.json']},
     long_description=get_long_description(),
     long_description_content_type='text/markdown',
-    python_requires='>=3',
-    install_requires=['Jinja2>=2', 'requests>=2.21'],
+    python_requires='>=3.4',
+    install_requires=['Jinja2>=2.9.0,<3', 'requests>=2.9.0,<3'],
     extras_require={
-        'pil-measurement': ['Pillow>=5'],
-        'dev': ['fonttools>=3.26', 'nox-automation>=0.19', 'Pillow>=5',
+        'pil-measurement': ['Pillow>=5,<6'],
+        'dev': ['fonttools>=3.26', 'nox', 'Pillow>=5',
                 'pytest>=3.6'],
     },
     license='Apache-2.0',

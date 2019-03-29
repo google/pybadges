@@ -23,19 +23,21 @@ def lint(session):
     Returns a failure if flake8 finds linting errors or sufficiently
     serious code quality issues.
     """
-    session.interpreter = 'python3'
     session.install('flake8')
     session.run('flake8',
                 'pypadges,tests')
 
 
-@nox.session
-def unit(session):
+@nox.session(python=['3.4', '3.5', '3.6', '3.7'])
+@nox.parametrize('pip_installs',
+                 [[], ['Jinja2==2.9.0', 'Pillow==5.0.0', 'requests==2.9.0']])
+def unit(session, pip_installs):
     """Run the unit test suite."""
-    session.interpreter = 'python3'
 
     session.install('-e', '.[dev]')
-    # Run py.test against the unit tests.
+    for package in pip_installs:
+        session.install(package)
+
     session.run(
         'py.test',
         '--quiet',
