@@ -18,3 +18,10 @@ jobs:
       - run:
           command: |
             nox -f noxfile -s lint
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - Unit Test
+      - Lint
