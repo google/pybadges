@@ -1,3 +1,7 @@
+[![CircleCI](https://circleci.com/gh/google/pybadges.svg?style=svg)](https://circleci.com/gh/google/pybadges)
+![pypi](https://img.shields.io/pypi/v/pybadges.svg)
+![versions](https://img.shields.io/pypi/pyversions/pybadges.svg)
+   
 # pybadges
 
 pybadges is a Python library and command line tool that allows you to create
