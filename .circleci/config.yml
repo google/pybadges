@@ -2,22 +2,26 @@ version: 2
 jobs:
   Unit Test:
     docker:
-      - image: googleapis/nox:0.18.2
+      - image: circleci/python:3.6.4
 
     steps:
       - checkout
       - run:
           command: |
+            sudo pip install virtualenv
+            sudo pip install nox
             nox -f noxfile.py -s unit
   Lint:
     docker:
-      - image: googleapis/nox:0.18.2
+      - image: circleci/python:3.6.4
 
     steps:
       - checkout
       - run:
           command: |
-            nox -f noxfile -s lint
+            sudo pip install virtualenv
+            sudo pip install nox
+            nox -f noxfile.py -s lint
 
 workflows:
   version: 2
