@@ -1,0 +1,20 @@
+version: 2
+jobs:
+  Unit Test:
+    docker:
+      - image: googleapis/nox:0.18.2
+
+    steps:
+      - checkout
+      - run:
+          command: |
+            nox -f noxfile.py -s unit
+  Lint:
+    docker:
+      - image: googleapis/nox:0.18.2
+
+    steps:
+      - checkout
+      - run:
+          command: |
+            nox -f noxfile -s lint
