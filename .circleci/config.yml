@@ -34,7 +34,7 @@ jobs:
           sudo pip install --upgrade twine
           sudo pip install --upgrade wheel
           sudo pip install --upgrade setuptools
-          source scripts/twine_upload.sh
+          source twine_upload.sh
 
 
 workflows:
