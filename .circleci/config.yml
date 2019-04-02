@@ -13,7 +13,7 @@ jobs:
             nox -f noxfile.py -s unit
   Lint:
     docker:
-      - image: circleci/python:3.6.4
+      - image: circleci/python:3.7.1
 
     steps:
       - checkout
@@ -23,9 +23,33 @@ jobs:
             sudo pip install nox
             nox -f noxfile.py -s lint
 
+  Release:
+    docker:
+      - image: circleci/python:3.7.1
+
+    steps:
+      - checkout
+      - run:
+         command: |
+          sudo pip install --upgrade twine
+          sudo pip install --upgrade wheel
+          sudo pip install --upgrade setuptools
+          source scripts/twine_upload.sh
+
+
 workflows:
   version: 2
   test:
     jobs:
       - Unit Test
       - Lint
+  release:
+    jobs:
+      - Release:
+          filters:
+            # Runs for no branches and only for tags like "1.2.3"
+            branches:
+              ignore: /.*/
+            tags:
+              only:
+                - /^\d+\.\d+\.\d+$/

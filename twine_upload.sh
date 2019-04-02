@@ -22,8 +22,6 @@ if [[ -z "$CIRCLE_TAG" ]]; then
   exit 0
 fi
 
-python3 -m pip install --upgrade twine wheel setuptools
-
 # Build the distribution and upload.
 python3 setup.py sdist bdist_wheel
 twine upload dist/* --username $PYPI_USERNAME --password $PYPI_PASSWORD
