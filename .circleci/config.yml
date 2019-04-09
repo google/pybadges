@@ -23,6 +23,17 @@ jobs:
             sudo pip install nox
             nox -f noxfile.py -s lint
 
+  Type Check:
+      - image: circleci/python:3.7.1
+
+    steps:
+      - checkout
+      - run:
+          command: |
+            sudo pip install virtualenv
+            sudo pip install nox
+            nox -f noxfile.py -s type_check
+
   Release:
     docker:
       - image: circleci/python:3.7.1
@@ -43,6 +54,7 @@ workflows:
     jobs:
       - Unit Test
       - Lint
+      - Type Check
   release:
     jobs:
       - Release:

@@ -44,3 +44,14 @@ def unit(session, pip_installs):
         'tests',
         *session.posargs
     )
+
+@nox.session
+def type_check(session):
+    """Run type checking using pytype."""
+    session.install('-e', '.[dev]')
+    session.install('pytype')
+    session.run(
+        'pytype',
+        '--python-version=3.6',
+        '--disable=pyi-error',
+        'pybadges')

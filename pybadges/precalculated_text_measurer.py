@@ -20,7 +20,7 @@ Uses a precalculated set of metrics to calculate the string length.
 import io
 import json
 import pkg_resources
-from typing import Mapping, TextIO, Type
+from typing import cast, Mapping, TextIO, Type
 
 from pybadges import text_measurer
 
@@ -80,7 +80,8 @@ class PrecalculatedTextMeasurer(text_measurer.TextMeasurer):
             with pkg_resources.resource_stream(__name__,
                                                'default-widths.json.xz') as f:
                 with lzma.open(f, "rt") as g:
-                    cls._default_cache = PrecalculatedTextMeasurer.from_json(g)
+                    cls._default_cache = PrecalculatedTextMeasurer.from_json(
+                        cast(TextIO, g))
                     return cls._default_cache
         elif pkg_resources.resource_exists(__name__, 'default-widths.json'):
             with pkg_resources.resource_stream(__name__,
