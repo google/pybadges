@@ -22,8 +22,8 @@ jobs:
             sudo pip install virtualenv
             sudo pip install nox
             nox -f noxfile.py -s lint
-
   Type Check:
+    docker:
       - image: circleci/python:3.7.1
 
     steps:
@@ -33,7 +33,6 @@ jobs:
             sudo pip install virtualenv
             sudo pip install nox
             nox -f noxfile.py -s type_check
-
   Release:
     docker:
       - image: circleci/python:3.7.1
