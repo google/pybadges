@@ -11,6 +11,17 @@ jobs:
             sudo pip install virtualenv
             sudo pip install nox
             nox -f noxfile.py -s unit
+  Compatibility Test:
+    docker:
+      - image: circleci/python:3.7.1
+
+    steps:
+      - checkout
+      - run:
+          command: |
+            sudo pip install virtualenv
+            sudo pip install nox
+            nox -f noxfile.py -s compatibility
   Lint:
     docker:
       - image: circleci/python:3.7.1
@@ -51,9 +62,10 @@ workflows:
   version: 2
   test:
     jobs:
-      - Unit Test
       - Lint
+      - Unit Test
       - Type Check
+      - Compatibility Test
   release:
     jobs:
       - Release:
