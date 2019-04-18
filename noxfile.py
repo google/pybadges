@@ -17,6 +17,15 @@
 import nox
 
 
+def _run_tests(session):
+    session.run(
+        'py.test',
+        '--quiet',
+        'tests',
+        *session.posargs
+    )
+
+
 @nox.session
 def lint(session):
     """Run flake8.
@@ -28,22 +37,23 @@ def lint(session):
                 'pypadges,tests')
 
 
+@nox.session
+def unit(session):
+    """Run the unit test suite."""
+    session.install('-e', '.[dev]')
+    _run_tests(session)
+
+
 @nox.session(python=['3.4', '3.5', '3.6', '3.7'])
-@nox.parametrize('pip_installs',
-                 [[], ['Jinja2==2.9.0', 'Pillow==5.0.0', 'requests==2.9.0']])
-def unit(session, pip_installs):
+@nox.parametrize('install',
+                 ['Jinja2==2.9.0', 'Pillow==5.0.0', 'requests==2.9.0'])
+def compatibility(session, install):
     """Run the unit test suite."""
 
     session.install('-e', '.[dev]')
-    for package in pip_installs:
-        session.install(package)
+    session.install(install)
+    _run_tests(session)
 
-    session.run(
-        'py.test',
-        '--quiet',
-        'tests',
-        *session.posargs
-    )
 
 @nox.session(python=['3.6'])
 def type_check(session):
