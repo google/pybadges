@@ -3,6 +3,9 @@
 {% set left_width = left_text_width + 10 + logo_width + logo_padding %}
 {% set right_width = right_text_width + 10 %}
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{{ left_width + right_width }}" height="20">
+  {% if whole_title %}
+    <title>{{ whole_title }}</title>
+  {% endif %}
   <linearGradient id="smooth" x2="0" y2="100%">
       <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
     <stop offset="1" stop-opacity=".1"/>
@@ -13,8 +16,16 @@
   </clipPath>
 
   <g clip-path="url(#round)">
-    <rect width="{{ left_width }}" height="20" fill="{{ left_color }}"/>
-    <rect x="{{ left_width }}" width="{{ right_width }}" height="20" fill="{{ right_color }}"/>
+    <rect width="{{ left_width }}" height="20" fill="{{ left_color }}">
+      {% if left_title %}
+        <title>{{ left_title }}</title>
+      {% endif %}
+    </rect>
+    <rect x="{{ left_width }}" width="{{ right_width }}" height="20" fill="{{ right_color }}">
+      {% if right_title %}
+        <title>{{ right_title }}</title>
+      {% endif %}
+    </rect>
     <rect width="{{ left_width + right_width }}" height="20" fill="url(#smooth)"/>
   </g>
 
