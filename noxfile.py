@@ -48,7 +48,7 @@ def unit(session):
 @nox.parametrize('install',
                  ['Jinja2==2.9.0', 'Pillow==5.0.0', 'requests==2.9.0'])
 def compatibility(session, install):
-    """Run the unit test suite."""
+    """Run the unit test suite with each support library and Python version."""
 
     session.install('-e', '.[dev]')
     session.install(install)
