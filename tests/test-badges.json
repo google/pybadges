@@ -33,7 +33,10 @@
     "left_link": "http://www.complete.com/",
     "right_link": "http://www.example.com",
     "logo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAD0lEQVQI12P4zwAD/xkYAA/+Af8iHnLUAAAAAElFTkSuQmCC",
-    "embed_logo": false
+    "embed_logo": false,
+    "whole_title": "Badge Title",
+    "left_title": "Left Title",
+    "right_title": "Right Title"
   },
   {
     "file_name": "complete.svg",
@@ -44,7 +47,10 @@
     "left_link": "http://www.complete.com/",
     "right_link": "http://www.example.com",
     "logo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAD0lEQVQI12P4zwAD/xkYAA/+Af8iHnLUAAAAAElFTkSuQmCC",
-    "embed_logo": true
+    "embed_logo": true,
+    "whole_title": "Badge Title",
+    "left_title": "Left Title",
+    "right_title": "Right Title"
   },
   {
     "file_name": "github.svg",

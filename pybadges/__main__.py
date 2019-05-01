@@ -95,17 +95,18 @@ def main():
     parser.add_argument(
         '--whole-title',
         default=None,
-        help='the url to redirect to when the badge is clicked')
+        help='the title to associate with the entire badge. See '
+             'https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title')
     parser.add_argument(
         '--left-title',
         default=None,
-        help='the url to redirect to when the left-hand of the badge is ' +
-             'clicked')
+        help='the title to associate with the left part of the badge. See '
+             'https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title')
     parser.add_argument(
         '--right-title',
         default=None,
-        help='the url to redirect to when the right-hand of the badge is ' +
-             'clicked')
+        help='the title to associate with the right part of the badge. See '
+             'https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title')
 
     args = parser.parse_args()
 

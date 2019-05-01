@@ -160,6 +160,14 @@ def badge(left_text: str, right_text: str, left_link: Optional[str] = None,
             external image referenced. When True, `logo` must be a HTTP/HTTPS
             URI or a filesystem path. Also, the `badge` call may raise an
             exception if the logo cannot be loaded, is not an image, etc.
+        whole_title: The title attribute to associate with the entire badge.
+            See https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title.
+        left_title: The title attribute to associate with the left part of the
+            badge.
+            See https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title.
+        right_title: The title attribute to associate with the right part of
+            the badge.
+            See https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title.
     """
     if measurer is None:
         measurer = (
