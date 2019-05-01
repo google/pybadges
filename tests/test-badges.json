@@ -16,7 +16,8 @@
     "file_name": "build-failure.svg",
     "left_text": "build",
     "right_text": "failure",
-    "right_color": "#c00"
+    "right_color": "#c00",
+    "whole_title": "Error in foo.py, line 3"
   },
   {
     "file_name": "build-running.svg",
