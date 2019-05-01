@@ -72,6 +72,8 @@ python -m pybadges \
 
 ![pip installation](tests/golden-images/complete.svg)
 
+#### A note about `--logo` and `--embed-logo`
+
 Note that the `--logo` option can include a regular URL:
 
 ```sh
@@ -95,6 +97,13 @@ to render the badge and that some browsers will not load image references at all
 You can see the difference in your browser:
 
 ![--embed-logo=yes](tests/golden-images/embedded-logo.svg) ![--embed-logo=no](tests/golden-images/no-embedded-logo.svg)
+
+#### A note about `--(whole|left|right)-title`
+
+The `title` element is usually displayed as a
+[pop-up by browsers](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title)
+but is currently
+[filtered by Github](https://github.com/github/markup/issues/1267).
 
 
 ### Library usage
