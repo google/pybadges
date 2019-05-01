@@ -92,6 +92,21 @@ def main():
         help='the path to the ttf font file containing DejaVu Sans. If not ' +
              'present on your system, you can download it from ' +
              'https://www.fontsquirrel.com/fonts/dejavu-sans')
+    parser.add_argument(
+        '--whole-title',
+        default=None,
+        help='the title to associate with the entire badge. See '
+             'https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title')
+    parser.add_argument(
+        '--left-title',
+        default=None,
+        help='the title to associate with the left part of the badge. See '
+             'https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title')
+    parser.add_argument(
+        '--right-title',
+        default=None,
+        help='the title to associate with the right part of the badge. See '
+             'https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title')
 
     args = parser.parse_args()
 
@@ -120,7 +135,10 @@ def main():
                            right_color=args.right_color,
                            logo=args.logo,
                            measurer=measurer,
-                           embed_logo=args.embed_logo)
+                           embed_logo=args.embed_logo,
+                           whole_title=args.whole_title,
+                           left_title=args.left_title,
+                           right_title=args.right_title)
 
     if args.browser:
         _, badge_path = tempfile.mkstemp(suffix='.svg')

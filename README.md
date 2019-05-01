@@ -64,6 +64,9 @@ python -m pybadges \
     --right-link=http://www.example.com \
     --logo='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAD0lEQVQI12P4zwAD/xkYAA/+Af8iHnLUAAAAAElFTkSuQmCC' \
     --embed-logo \
+    --whole-title="Badge Title" \
+    --left-title="Left Title" \
+    --right-title="Right Title" \
     --browser
 ```
 
