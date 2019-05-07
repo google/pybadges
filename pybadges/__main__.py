@@ -22,8 +22,8 @@ import argparse
 import sys
 import tempfile
 import webbrowser
-
 import pybadges
+from version import __version__
 
 
 def main():
@@ -107,7 +107,10 @@ def main():
         default=None,
         help='the title to associate with the right part of the badge. See '
              'https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title')
-
+    parser.add_argument(
+        '-v', '--version',
+        action='version',
+        version='%(prog)s {version}'.format(version=__version__))
     args = parser.parse_args()
 
     if (args.left_link or args.right_link) and args.whole_link:
