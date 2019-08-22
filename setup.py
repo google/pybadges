@@ -60,8 +60,13 @@ setup(
     description='A library and command-line tool for generating Github-style ' +
                 'badges',
     keywords="github gh-badges badge shield status",
-    package_data={'pybadges': ['badge-template-full.svg',
-                               'default-widths.json']},
+    package_data={
+        'pybadges': [
+            'badge-template-full.svg',
+            'default-widths.json', 
+            'py.typed'
+        ]
+    },
     long_description=get_long_description(),
     long_description_content_type='text/markdown',
     python_requires='>=3.4',
