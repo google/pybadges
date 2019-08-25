@@ -155,7 +155,7 @@ nox
 ```
 
 If you'd like to contribute your changes back to pybadges, please read the
-[contributer guide.](CONTRIBUTING.md)
+[contributor guide.](CONTRIBUTING.md)
 
 ## Versioning
 
