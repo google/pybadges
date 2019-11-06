@@ -18,7 +18,6 @@ import base64
 import re
 
 from setuptools import setup
-from distutils2 import get_version
 
 def get_long_description():
     """Transform README.md into a usable long description.
@@ -41,7 +40,7 @@ def get_long_description():
 
 setup(
     name='pybadges',
-    version= get_version('pybadges/version.py'),
+    version= '2.2.1',  # Also change in version.py.
     author='Brian Quinlan',
     author_email='brian@sweetapp.com',
     classifiers=[
