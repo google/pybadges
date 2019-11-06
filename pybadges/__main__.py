@@ -22,12 +22,14 @@ import argparse
 import sys
 import tempfile
 import webbrowser
+
 import pybadges
-from version import __version__
+from pybadges.version import __version__
 
 
 def main():
     parser = argparse.ArgumentParser(
+        'pybadges',
         description='generate a github-style badge given some text and colors')
 
     parser.add_argument(

@@ -36,13 +36,13 @@ import mimetypes
 from typing import Optional
 import urllib.parse
 from xml.dom import minidom
-from version import __version__
 
 import jinja2
 import requests
 
 from pybadges import text_measurer
 from pybadges import precalculated_text_measurer
+from pybadges.version import __version__
 
 
 _JINJA2_ENVIRONMENT = jinja2.Environment(
