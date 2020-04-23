@@ -16,22 +16,21 @@
 
 from flask import Flask
 import pybadges
+import flask
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def serveBadges():
-    # First example
-    badge_arg = dict(
+    badge = pybadges.badge(
         left_text='build',
         right_text='passing',
         right_color='#008000')
-    badge = pybadges.badge(**badge_arg)
 
-    # Second example
-    secondBadge = pybadges.badge('chat', 'online')
-    return badge + "\n" + secondBadge
+    response = flask.make_response(badge)
+    response.content_type = 'image/svg+xml'
+    return response
 
 
 if __name__ == '__main__':
