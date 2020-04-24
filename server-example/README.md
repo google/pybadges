@@ -8,18 +8,12 @@ Before running, it is **recommended** to install the versions of packages that w
 pip install -r requirements.txt
 ```
 
-And if you don't have installed flask yet:
-
-```sh
-apt install python3-flask
-```
-
 ### Running
 
-You must inform the environment variable FLASK_APP and then run:
+You must set the FLASK_APP environment variable before running the server:
 
 ```sh
-export FLASK_APP=hello.py
+export FLASK_APP=app.py
 flask run
 ```
 
