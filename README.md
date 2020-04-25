@@ -44,6 +44,8 @@ pybadges can be used both from the command line and as a Python library.
 The command line interface is a great way to experiment with the API before
 writing Python code.
 
+You could also look at the [example server](https://github.com/google/pybadges/tree/master/server-example).
+
 ### Command line usage
 
 Complete documentation of pybadges command arguments can be found using the `--help`
