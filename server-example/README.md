@@ -1,8 +1,10 @@
-## Simple Server
+## Simple Flask Server
+
+This is a simple example of how badges can be served from a web server.
 
 ### Installing
 
-Before running, it is **recommended** to install the versions of packages that were used when writing this code:
+Before running the server, you must install Flask and pybadges. You can install both with:
 
 ```sh
 pip install -r requirements.txt
@@ -10,11 +12,11 @@ pip install -r requirements.txt
 
 ### Running
 
-You must set the FLASK_APP environment variable before running the server:
+To run the server, you must set the FLASK_APP environment variable before running the server using Flask:
 
 ```sh
 export FLASK_APP=app.py
 flask run
 ```
 
- * Running on http://127.0.0.1:5000/
+After this step, you can view your badge on http://127.0.0.1:5000/
