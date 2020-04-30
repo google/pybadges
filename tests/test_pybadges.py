@@ -21,6 +21,7 @@ import os.path
 import unittest
 import pathlib
 import tempfile
+import xmldiff.main
 
 import pybadges
 
@@ -53,11 +54,12 @@ class TestPybadgesBadge(unittest.TestCase):
             with self.subTest(example=file_name):
                 filepath = os.path.join(TEST_DIR, 'golden-images', file_name)
 
-                with open(filepath, 'r') as f:
+                with open(filepath, mode="r", encoding="utf-8") as f:
                     golden_image = f.read()
                 pybadge_image = pybadges.badge(**example)
-                self.assertEqual(golden_image, pybadge_image)
 
+                diff = xmldiff.main.diff_texts(golden_image, pybadge_image)
+                self.assertFalse(diff)
 
 class TestEmbedImage(unittest.TestCase):
     """Tests for pybadges._embed_image."""
