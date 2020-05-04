@@ -73,7 +73,7 @@ setup(
     extras_require={
         'pil-measurement': ['Pillow>=5,<6'],
         'dev': ['fonttools>=3.26', 'nox', 'Pillow>=5',
-                'pytest>=3.6'],
+                'pytest>=3.6', 'xmldiff>=2.4'],
     },
     license='Apache-2.0',
     packages=["pybadges"],

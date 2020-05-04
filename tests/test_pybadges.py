@@ -20,7 +20,9 @@ import json
 import os.path
 import unittest
 import pathlib
+import sys
 import tempfile
+import xmldiff.main
 
 import pybadges
 
@@ -53,11 +55,12 @@ class TestPybadgesBadge(unittest.TestCase):
             with self.subTest(example=file_name):
                 filepath = os.path.join(TEST_DIR, 'golden-images', file_name)
 
-                with open(filepath, 'r') as f:
+                with open(filepath, mode="r", encoding="utf-8") as f:
                     golden_image = f.read()
                 pybadge_image = pybadges.badge(**example)
-                self.assertEqual(golden_image, pybadge_image)
 
+                diff = xmldiff.main.diff_texts(golden_image, pybadge_image)
+                self.assertFalse(diff)
 
 class TestEmbedImage(unittest.TestCase):
     """Tests for pybadges._embed_image."""
@@ -76,12 +79,14 @@ class TestEmbedImage(unittest.TestCase):
                                     'expected an image, got "text"'):
             pybadges._embed_image('http://www.google.com/')
 
+    @unittest.skipIf(sys.platform.startswith("win"), "requires Unix filesystem")
     def test_svg_file_path(self):
         image_path = os.path.abspath(
             os.path.join(TEST_DIR, 'golden-images', 'build-failure.svg'))
         self.assertRegex(pybadges._embed_image(image_path),
                          r'^data:image/svg(\+xml)?;base64,')
 
+    @unittest.skipIf(sys.platform.startswith("win"), "requires Unix filesystem")
     def test_png_file_path(self):
         with tempfile.NamedTemporaryFile() as png:
             png.write(PNG_IMAGE)
@@ -89,6 +94,7 @@ class TestEmbedImage(unittest.TestCase):
             self.assertEqual(pybadges._embed_image(png.name),
                              'data:image/png;base64,' + PNG_IMAGE_B64)
 
+    @unittest.skipIf(sys.platform.startswith("win"), "requires Unix filesystem")
     def test_unknown_type_file_path(self):
         with tempfile.NamedTemporaryFile() as non_image:
             non_image.write(b'Hello')
@@ -97,6 +103,7 @@ class TestEmbedImage(unittest.TestCase):
                                         'not able to determine file type'):
                 pybadges._embed_image(non_image.name)
 
+    @unittest.skipIf(sys.platform.startswith("win"), "requires Unix filesystem")
     def test_text_file_path(self):
         with tempfile.NamedTemporaryFile(suffix='.txt') as non_image:
             non_image.write(b'Hello')
