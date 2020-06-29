@@ -22,6 +22,7 @@ def _run_tests(session):
         'py.test',
         '--quiet',
         'tests',
+        'server-example',
         *session.posargs
     )
 
@@ -33,24 +34,27 @@ def lint(session):
     serious code quality issues.
     """
     session.install('flake8')
-    session.run('flake8',
-                'pypadges,tests')
+    session.run('flake8', 'pybadges')
+    session.run('flake8', 'tests')
+    session.run('flake8', 'server-example')
 
 
 @nox.session
 def unit(session):
     """Run the unit test suite."""
     session.install('-e', '.[dev]')
+    session.install('-r', 'server-example/requirements-test.txt')
     _run_tests(session)
 
 
-@nox.session(python=['3.4', '3.5', '3.6', '3.7'])
+@nox.session(python=['3.4', '3.5', '3.6', '3.7', '3.8'])
 @nox.parametrize('install',
                  ['Jinja2==2.9.0', 'Pillow==5.0.0', 'requests==2.9.0', 'xmldiff==2.4'])
 def compatibility(session, install):
     """Run the unit test suite with each support library and Python version."""
 
     session.install('-e', '.[dev]')
+    session.install('-r', 'server-example/requirements-test.txt')
     session.install(install)
     _run_tests(session)
 
