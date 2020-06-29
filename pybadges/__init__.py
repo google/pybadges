@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """Creates a github-style badge as a SVG image.
 
 This package seeks to generate semantically-identical output to the JavaScript
@@ -43,7 +42,6 @@ import requests
 from pybadges import text_measurer
 from pybadges import precalculated_text_measurer
 from pybadges.version import __version__
-
 
 _JINJA2_ENVIRONMENT = jinja2.Environment(
     trim_blocks=True,
@@ -77,6 +75,7 @@ def _remove_blanks(node):
         elif x.nodeType == minidom.Node.ELEMENT_NODE:
             _remove_blanks(x)
 
+
 def _embed_image(url: str) -> str:
     parsed_url = urllib.parse.urlparse(url)
 
@@ -90,8 +89,8 @@ def _embed_image(url: str) -> str:
             raise ValueError('no "Content-Type" header')
         content_type, image_type = content_type.split('/')
         if content_type != 'image':
-            raise ValueError('expected an image, got "{0}"'.format(
-                content_type))
+            raise ValueError(
+                'expected an image, got "{0}"'.format(content_type))
         image_data = r.content
     elif parsed_url.scheme:
         raise ValueError('unsupported scheme "{0}"'.format(parsed_url.scheme))
@@ -113,16 +112,21 @@ def _embed_image(url: str) -> str:
     return 'data:image/{};base64,{}'.format(image_type, encoded_image)
 
 
-def badge(left_text: str, right_text: str, left_link: Optional[str] = None,
-          right_link: Optional[str] = None,
-          whole_link: Optional[str] = None, logo: Optional[str] = None,
-          left_color: str = '#555', right_color: str = '#007ec6',
-          measurer: Optional[text_measurer.TextMeasurer] = None,
-          embed_logo: bool = False,
-          whole_title: Optional[str] = None,
-          left_title: Optional[str] = None,
-          right_title: Optional[str] = None,
-          ) -> str:
+def badge(
+    left_text: str,
+    right_text: str,
+    left_link: Optional[str] = None,
+    right_link: Optional[str] = None,
+    whole_link: Optional[str] = None,
+    logo: Optional[str] = None,
+    left_color: str = '#555',
+    right_color: str = '#007ec6',
+    measurer: Optional[text_measurer.TextMeasurer] = None,
+    embed_logo: bool = False,
+    whole_title: Optional[str] = None,
+    left_title: Optional[str] = None,
+    right_title: Optional[str] = None,
+) -> str:
     """Creates a github-style badge as an SVG image.
 
     >>> badge(left_text='coverage', right_text='23%', right_color='red')
@@ -172,8 +176,7 @@ def badge(left_text: str, right_text: str, left_link: Optional[str] = None,
     """
     if measurer is None:
         measurer = (
-            precalculated_text_measurer.PrecalculatedTextMeasurer
-                .default())
+            precalculated_text_measurer.PrecalculatedTextMeasurer.default())
 
     if (left_link or right_link) and whole_link:
         raise ValueError(

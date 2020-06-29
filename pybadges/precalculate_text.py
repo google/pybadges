@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """Creates a JSON file that can be used by precalculated_text_measurer.py.
 
 Creates a JSON file that can be used by
@@ -106,8 +105,8 @@ def calculate_character_to_length_mapping(
 
 
 def calculate_pair_to_kern_mapping(
-        measurer: text_measurer.TextMeasurer,
-        char_to_length: Mapping[str, float],
+        measurer: text_measurer.TextMeasurer, char_to_length: Mapping[str,
+                                                                      float],
         characters: Iterable[str]) -> Mapping[str, float]:
     """Returns a mapping between each *pair* of characters and their kerning.
 
@@ -147,16 +146,20 @@ def write_json(f: TextIO, deja_vu_sans_path: str,
         generate_supported_characters(deja_vu_sans_path))
     kerning_characters = ''.join(
         generate_encodeable_characters(supported_characters, encodings))
-    char_to_length = calculate_character_to_length_mapping(measurer,
-                                                           supported_characters)
+    char_to_length = calculate_character_to_length_mapping(
+        measurer, supported_characters)
     pair_to_kerning = calculate_pair_to_kern_mapping(measurer, char_to_length,
                                                      kerning_characters)
     json.dump(
-        {'mean-character-length': statistics.mean(char_to_length.values()),
-         'character-lengths': char_to_length,
-         'kerning-characters': kerning_characters,
-         'kerning-pairs': pair_to_kerning},
-        f, sort_keys=True, indent=1)
+        {
+            'mean-character-length': statistics.mean(char_to_length.values()),
+            'character-lengths': char_to_length,
+            'kerning-characters': kerning_characters,
+            'kerning-pairs': pair_to_kerning
+        },
+        f,
+        sort_keys=True,
+        indent=1)
 
 
 def main():
@@ -167,8 +170,8 @@ def main():
         '--deja-vu-sans-path',
         required=True,
         help='the path to the ttf font file containing DejaVu Sans. If not ' +
-             'present on your system, you can download it from ' +
-             'https://www.fontsquirrel.com/fonts/dejavu-sans')
+        'present on your system, you can download it from ' +
+        'https://www.fontsquirrel.com/fonts/dejavu-sans')
 
     parser.add_argument(
         '--kerning-pair-encodings',
@@ -178,11 +181,10 @@ def main():
 
     parser.add_argument(
         '--output-json-file',
-        default=os.path.join(os.path.dirname(__file__),
-                             'default-widths.json'),
+        default=os.path.join(os.path.dirname(__file__), 'default-widths.json'),
         help='the path where the generated JSON will be placed. If the ' +
-             'provided filename extension ends with .xz then the output' +
-             'will be compressed using lzma.')
+        'provided filename extension ends with .xz then the output' +
+        'will be compressed using lzma.')
 
     args = parser.parse_args()
 
@@ -196,8 +198,8 @@ def main():
             return open(args.output_json_file, 'wt')
 
     with create_file() as f:
-        write_json(
-            f, args.deja_vu_sans_path, measurer, args.kerning_pair_encodings)
+        write_json(f, args.deja_vu_sans_path, measurer,
+                   args.kerning_pair_encodings)
 
 
 if __name__ == '__main__':
