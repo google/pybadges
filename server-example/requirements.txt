@@ -1,2 +1,3 @@
 Flask>1.1
 pybadges
+pytest
