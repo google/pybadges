@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """Measure the width, in pixels, of a  string rendered using DejaVu Sans 110pt.
 
 Contains only an abstract base class.

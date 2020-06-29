@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """ Example CI server that serves badges."""
 
 from flask import Flask
@@ -23,10 +22,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def serveBadges():
-    badge = pybadges.badge(
-        left_text='build',
-        right_text='passing',
-        right_color='#008000')
+    badge = pybadges.badge(left_text='build',
+                           right_text='passing',
+                           right_color='#008000')
 
     response = flask.make_response(badge)
     response.content_type = 'image/svg+xml'
