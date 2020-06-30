@@ -11,20 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """Nox config for running lint and unit tests."""
 
 import nox
 
 
 def _run_tests(session):
-    session.run(
-        'py.test',
-        '--quiet',
-        'tests',
-        'server-example',
-        *session.posargs
-    )
+    session.run('py.test', '--quiet', 'tests', 'server-example',
+                *session.posargs)
 
 
 @nox.session
@@ -33,10 +27,8 @@ def lint(session):
     Returns a failure if flake8 finds linting errors or sufficiently
     serious code quality issues.
     """
-    session.install('flake8')
-    session.run('flake8', 'pybadges')
-    session.run('flake8', 'tests')
-    session.run('flake8', 'server-example')
+    session.install('yapf')
+    session.run('python3', '-m', 'yapf', '--diff', '-r', '.')
 
 
 @nox.session
@@ -48,8 +40,9 @@ def unit(session):
 
 
 @nox.session(python=['3.4', '3.5', '3.6', '3.7', '3.8'])
-@nox.parametrize('install',
-                 ['Jinja2==2.9.0', 'Pillow==5.0.0', 'requests==2.9.0', 'xmldiff==2.4'])
+@nox.parametrize(
+    'install',
+    ['Jinja2==2.9.0', 'Pillow==5.0.0', 'requests==2.9.0', 'xmldiff==2.4'])
 def compatibility(session, install):
     """Run the unit test suite with each support library and Python version."""
 
@@ -64,8 +57,5 @@ def type_check(session):
     """Run type checking using pytype."""
     session.install('-e', '.[dev]')
     session.install('pytype')
-    session.run(
-        'pytype',
-        '--python-version=3.6',
-        '--disable=pyi-error',
-        'pybadges')
+    session.run('pytype', '--python-version=3.6', '--disable=pyi-error',
+                'pybadges')

@@ -22,6 +22,7 @@ import pkg_resources
 
 import pybadges
 
+
 def generate_images(source_json_path, target_directory):
     os.makedirs(target_directory, exist_ok=True)
     with open(source_json_path) as f:
@@ -34,15 +35,20 @@ def generate_images(source_json_path, target_directory):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='generate a github-style badge given some text and colors')
+    parser = argparse.ArgumentParser(
+        description='generate a github-style badge given some text and colors')
 
-    parser.add_argument('--source-path',
-                        default=pkg_resources.resource_filename(__name__, 'tests/test-badges.json'),
-                        help='the text to show on the left-hand-side of the badge')
+    parser.add_argument(
+        '--source-path',
+        default=pkg_resources.resource_filename(__name__,
+                                                'tests/test-badges.json'),
+        help='the text to show on the left-hand-side of the badge')
 
-    parser.add_argument('--destination-dir',
-                        default=pkg_resources.resource_filename(__name__, 'tests/golden-images'),
-                        help='the text to show on the left-hand-side of the badge')
+    parser.add_argument(
+        '--destination-dir',
+        default=pkg_resources.resource_filename(__name__,
+                                                'tests/golden-images'),
+        help='the text to show on the left-hand-side of the badge')
     args = parser.parse_args()
     generate_images(args.source_path, args.destination_dir)
 

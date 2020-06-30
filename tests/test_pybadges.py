@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """Tests for pybadges."""
 
 import base64
@@ -42,7 +41,8 @@ class TestPybadgesBadge(unittest.TestCase):
 
     def test_whole_link_and_left_link(self):
         with self.assertRaises(ValueError):
-            pybadges.badge(left_text='foo', right_text='bar',
+            pybadges.badge(left_text='foo',
+                           right_text='bar',
                            left_link='http://example.com/',
                            whole_link='http://example.com/')
 
@@ -61,6 +61,7 @@ class TestPybadgesBadge(unittest.TestCase):
 
                 diff = xmldiff.main.diff_texts(golden_image, pybadge_image)
                 self.assertFalse(diff)
+
 
 class TestEmbedImage(unittest.TestCase):
     """Tests for pybadges._embed_image."""

@@ -11,13 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """A setup module for pybadges."""
 
 import base64
 import re
 
 from setuptools import setup
+
 
 def get_long_description():
     """Transform README.md into a usable long description.
@@ -34,13 +34,12 @@ def get_long_description():
                 '%s?sanitize=true)' % svg_path)
 
     return re.sub(r'\(tests/golden-images/.*?\.svg\)',
-                  replace_relative_with_absolute,
-                  read_me)
+                  replace_relative_with_absolute, read_me)
 
 
 setup(
     name='pybadges',
-    version= '2.2.1',  # Also change in version.py.
+    version='2.3.0',  # Also change in version.py.
     author='Brian Quinlan',
     author_email='brian@sweetapp.com',
     classifiers=[
@@ -57,13 +56,11 @@ setup(
         'Operating System :: OS Independent',
     ],
     description='A library and command-line tool for generating Github-style ' +
-                'badges',
+    'badges',
     keywords="github gh-badges badge shield status",
     package_data={
         'pybadges': [
-            'badge-template-full.svg',
-            'default-widths.json', 
-            'py.typed'
+            'badge-template-full.svg', 'default-widths.json', 'py.typed'
         ]
     },
     long_description=get_long_description(),
@@ -72,8 +69,9 @@ setup(
     install_requires=['Jinja2>=2.9.0,<3', 'requests>=2.9.0,<3'],
     extras_require={
         'pil-measurement': ['Pillow>=5,<6'],
-        'dev': ['fonttools>=3.26', 'nox', 'Pillow>=5',
-                'pytest>=3.6', 'xmldiff>=2.4'],
+        'dev': [
+            'fonttools>=3.26', 'nox', 'Pillow>=5', 'pytest>=3.6', 'xmldiff>=2.4'
+        ],
     },
     license='Apache-2.0',
     packages=["pybadges"],

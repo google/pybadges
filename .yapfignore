@@ -1,0 +1,6 @@
+# Virtual environments
+venv
+**/venv
+
+# Automatically generated nox files
+.nox
