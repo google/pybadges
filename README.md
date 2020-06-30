@@ -123,6 +123,14 @@ The keyword arguments to `badge()` are identical to the command flags names
 described above except with keyword arguments using underscore instead of
 hyphen/minus (e.g. `--left-text` => `left_text=`)
 
+#### Server usage
+
+pybadges can be used to serve badge images on the web. 
+
+[server-example](https://github.com/google/pybadges/tree/master/server-example)
+contains an example of serving badge images from a
+[Flask server](https://flask.palletsprojects.com/).
+
 ### Caveats
 
  - pybadges uses a pre-calculated table of text widths and
