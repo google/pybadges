@@ -1,0 +1,42 @@
+<html>
+
+<head>
+    <title>pybadges demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+    <style>
+        table {
+            font-family: 'Roboto Mono', monospace;
+            border-spacing: 1em;
+            text-align: left;
+            border-collapse: separate;
+        }
+
+        img {
+            padding-left: 5em;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tbody>
+            {% for badge in badges %}
+            <tr>
+                <td>
+                    <pre>
+pybadges(left_text="{{ badge.left_text }}",
+         right_text="{{ badge.right_text }}",
+         left_color="{{ badge.left_color }}",
+         right_color="{{ badge.right_color}}",
+         logo={{ '"' ~ badge.logo ~ '"' if badge.logo else "None" }})
+
+</pre>
+                </td>
+                <td><img src={{ badge.url }}></td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+</body>
+
+</html>

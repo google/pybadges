@@ -1,6 +1,7 @@
 ## Simple Flask Server
 
-This is a simple example of how badges can be served from a web server.
+This is a simple example of how a
+[Flask](https://flask.palletsprojects.com/) server can serve badges.
 
 ### Installing
 
