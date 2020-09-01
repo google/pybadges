@@ -119,13 +119,16 @@ def badge(
     right_link: Optional[str] = None,
     whole_link: Optional[str] = None,
     logo: Optional[str] = None,
-    left_color: str = '#555',
+    bg_color: str = '#555',
+    left_color: Optional[str] = None,
     right_color: str = '#007ec6',
     measurer: Optional[text_measurer.TextMeasurer] = None,
     embed_logo: bool = False,
     whole_title: Optional[str] = None,
     left_title: Optional[str] = None,
     right_title: Optional[str] = None,
+    right_image: Optional[str] = None,
+    embed_right_image: bool = False,
 ) -> str:
     """Creates a github-style badge as an SVG image.
 
@@ -148,16 +151,13 @@ def badge(
             selected. If set then left_link and right_right may not be set.
         logo: A url representing a logo that will be displayed inside the
             badge. Can be a data URL e.g. "data:image/svg+xml;utf8,<svg..."
-        left_color: The color of the part of the badge containing the left-hand
-            text. Can be an valid CSS color
+        bg_color: The background color of the badge. Can be an valid CSS color
             (see https://developer.mozilla.org/en-US/docs/Web/CSS/color) or a
             color name defined here:
             https://github.com/badges/shields/blob/master/lib/colorscheme.json
+        left_color: The color of the part of the badge containing the left text. If not specified, bg_color is used
         right_color: The color of the part of the badge containing the
-            right-hand text. Can be an valid CSS color
-            (see https://developer.mozilla.org/en-US/docs/Web/CSS/color) or a
-            color name defined here:
-            https://github.com/badges/shields/blob/master/lib/colorscheme.json
+            right-hand text.
         measurer: A text_measurer.TextMeasurer that can be used to measure the
             width of left_text and right_text.
         embed_logo: If True then embed the logo image directly in the badge.
@@ -173,6 +173,10 @@ def badge(
         right_title: The title attribute to associate with the right part of
             the badge.
             See https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title.
+        right_image: A url representing a image which can be embedded before right_text.
+            Can be a data URL e.g. "data:image/svg+xml;utf8,<svg..."
+        embed_right_image: If True, the right image is embedded into the badge
+            itself and saves an additional HTTP request. See embed_logo.
     """
     if measurer is None:
         measurer = (
@@ -186,6 +190,9 @@ def badge(
     if logo and embed_logo:
         logo = _embed_image(logo)
 
+    if right_image and embed_right_image:
+        right_image = _embed_image(right_image)
+
     svg = template.render(
         left_text=left_text,
         right_text=right_text,
@@ -195,11 +202,13 @@ def badge(
         right_link=right_link,
         whole_link=whole_link,
         logo=logo,
+        bg_color=_NAME_TO_COLOR.get(bg_color, bg_color),
         left_color=_NAME_TO_COLOR.get(left_color, left_color),
         right_color=_NAME_TO_COLOR.get(right_color, right_color),
         whole_title=whole_title,
         left_title=left_title,
         right_title=right_title,
+        right_image=right_image,
     )
     xml = minidom.parseString(svg)
     _remove_blanks(xml)

@@ -69,6 +69,7 @@ setup(
     install_requires=['Jinja2>=2.9.0,<3', 'requests>=2.9.0,<3'],
     extras_require={
         'pil-measurement': ['Pillow>=5,<6'],
+        'trend': ['numpy', 'drawSvg'],
         'dev': [
             'fonttools>=3.26', 'nox', 'Pillow>=5', 'pytest>=3.6', 'xmldiff>=2.4'
         ],
