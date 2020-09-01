@@ -28,28 +28,20 @@ def repeat(samples: List[int], n: int) -> List[int]:
     """
     return list(
         itertools.chain.from_iterable(
-            itertools.repeat(sample, n)
-            for sample in samples
-        )
-    )
+            itertools.repeat(sample, n) for sample in samples))
 
 
 def fit_data(samples: List[int]) -> Tuple[List[int], List[int]]:
     y = list(
-            itertools.chain.from_iterable(
-                itertools.repeat(sample, 10)
-                for sample in samples
-            )
-        )
+        itertools.chain.from_iterable(
+            itertools.repeat(sample, 10) for sample in samples))
     xp = np.arange(len(y))
     yp = normalize(np.poly1d(np.polyfit(xp, y, 15))(xp))
-    yp[yp>0] *= (HEIGHT-2)
+    yp[yp > 0] *= (HEIGHT - 2)
     return xp, yp
 
 
-def trend(
-        samples: List[int], stroke_color: str, stroke_width: int
-    ) -> str:
+def trend(samples: List[int], stroke_color: str, stroke_width: int) -> str:
     canvas = draw.Drawing(WIDTH, HEIGHT, origin=(0, -Y_OFFSET))
     path = draw.Path(
         fill="transparent",

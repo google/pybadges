@@ -28,10 +28,13 @@ from pybadges.version import __version__
 
 
 def main():
+
     def csv(values):
         return [int(value) for value in values.split(",")]
+
     def boolean(value):
         return value.lower() in ['y', 'yes', 't', 'true', '1', '']
+
     parser = argparse.ArgumentParser(
         'pybadges',
         description='generate a github-style badge given some text and colors')
@@ -56,10 +59,9 @@ def main():
         default=None,
         help='the url to redirect to when the right-hand of the badge is ' +
         'clicked')
-    parser.add_argument(
-        '--bg-color',
-        default='#555',
-        help='the background color of the badge')
+    parser.add_argument('--bg-color',
+                        default='#555',
+                        help='the background color of the badge')
     parser.add_argument(
         '--left-color',
         default='None',
@@ -93,7 +95,8 @@ def main():
         type=boolean,
         const='yes',
         default='no',
-        help='embed right image into the badge. See embed-logo for more details')
+        help='embed right image into the badge. See embed-logo for more details'
+    )
     parser.add_argument('--browser',
                         action='store_true',
                         default=False,
@@ -137,11 +140,10 @@ def main():
         default=None,
         help='the color of the trend-line. if not supplied, it is plotted'
         ' in the same color as right-color')
-    parser.add_argument(
-        '--trend-width',
-        type=int,
-        default=1,
-        help='the width of the trend-line. default: 1')
+    parser.add_argument('--trend-width',
+                        type=int,
+                        default=1,
+                        help='the width of the trend-line. default: 1')
     parser.add_argument(
         '-v',
         '--version',
@@ -155,14 +157,14 @@ def main():
               file=sys.stderr)
         sys.exit(1)
     if args.show_trend and args.right_image:
-        print('argument --right-image: cannot be used with ' +
-              '--show-trend',
+        print('argument --right-image: cannot be used with ' + '--show-trend',
               file=sys.stderr)
         sys.exit(1)
 
     right_image = args.right_image
     if args.show_trend:
-        samples = args.show_trend if len(args.show_trend) < 10 else args.show_trend[:10]
+        samples = args.show_trend if len(
+            args.show_trend) < 10 else args.show_trend[:10]
         if len(samples) < 10:
             samples = [0] * (10 - len(samples)) + samples
         right_image = trend(
@@ -181,23 +183,24 @@ def main():
         from pybadges import pil_text_measurer
         measurer = pil_text_measurer.PilMeasurer(args.deja_vu_sans_path)
 
-    badge = pybadges.badge(left_text=args.left_text,
-                           right_text=args.right_text,
-                           left_link=args.left_link,
-                           right_link=args.right_link,
-                           whole_link=args.whole_link,
-                           bg_color=args.bg_color,
-                           left_color=args.left_color,
-                           right_color=args.right_color,
-                           logo=args.logo,
-                           measurer=measurer,
-                           embed_logo=args.embed_logo,
-                           whole_title=args.whole_title,
-                           left_title=args.left_title,
-                           right_title=args.right_title,
-                           right_image=right_image,
-                           embed_right_image=args.embed_right_image,
-           )
+    badge = pybadges.badge(
+        left_text=args.left_text,
+        right_text=args.right_text,
+        left_link=args.left_link,
+        right_link=args.right_link,
+        whole_link=args.whole_link,
+        bg_color=args.bg_color,
+        left_color=args.left_color,
+        right_color=args.right_color,
+        logo=args.logo,
+        measurer=measurer,
+        embed_logo=args.embed_logo,
+        whole_title=args.whole_title,
+        left_title=args.left_title,
+        right_title=args.right_title,
+        right_image=right_image,
+        embed_right_image=args.embed_right_image,
+    )
 
     if args.browser:
         _, badge_path = tempfile.mkstemp(suffix='.svg')
