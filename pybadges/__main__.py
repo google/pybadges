@@ -23,7 +23,6 @@ import tempfile
 import webbrowser
 
 import pybadges
-from pybadges.trend import trend
 from pybadges.version import __version__
 
 
@@ -161,18 +160,6 @@ def main():
               file=sys.stderr)
         sys.exit(1)
 
-    right_image = args.right_image
-    if args.show_trend:
-        samples = args.show_trend if len(
-            args.show_trend) < 10 else args.show_trend[:10]
-        if len(samples) < 10:
-            samples = [0] * (10 - len(samples)) + samples
-        right_image = trend(
-            samples=samples,
-            stroke_color=(args.trend_color or args.right_color),
-            stroke_width=args.trend_width,
-        )
-
     measurer = None
     if args.use_pil_text_measurer:
         if args.deja_vu_sans_path is None:
@@ -198,8 +185,11 @@ def main():
         whole_title=args.whole_title,
         left_title=args.left_title,
         right_title=args.right_title,
-        right_image=right_image,
+        right_image=args.right_image,
         embed_right_image=args.embed_right_image,
+        show_trend=args.show_trend,
+        trend_color=args.trend_color,
+        trend_width=args.trend_width,
     )
 
     if args.browser:

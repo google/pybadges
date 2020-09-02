@@ -32,7 +32,7 @@ gh-badges library
 import base64
 import imghdr
 import mimetypes
-from typing import Optional
+from typing import List, Optional
 import urllib.parse
 from xml.dom import minidom
 
@@ -40,6 +40,7 @@ import jinja2
 import requests
 
 from pybadges import text_measurer
+from pybadges.trend import trend
 from pybadges import precalculated_text_measurer
 from pybadges.version import __version__
 
@@ -129,6 +130,9 @@ def badge(
     right_title: Optional[str] = None,
     right_image: Optional[str] = None,
     embed_right_image: bool = False,
+    show_trend: Optional[List[int]] = None,
+    trend_color: Optional[str] = None,
+    trend_width: Optional[int] = 1,
 ) -> str:
     """Creates a github-style badge as an SVG image.
 
@@ -177,6 +181,10 @@ def badge(
             Can be a data URL e.g. "data:image/svg+xml;utf8,<svg..."
         embed_right_image: If True, the right image is embedded into the badge
             itself and saves an additional HTTP request. See embed_logo.
+        show_trend: plot a trend with not more than 10 data points passed. if both
+            show_trend and right_image are passed, ValueError is raised.
+        trend_color: color of the trend line. If not supplied, right_color is used.
+        trend_width: stroke width of the trend line.
     """
     if measurer is None:
         measurer = (
@@ -185,6 +193,20 @@ def badge(
     if (left_link or right_link) and whole_link:
         raise ValueError(
             'whole_link may not bet set with left_link or right_link')
+
+    if show_trend and right_image:
+        raise ValueError('right-image and trend cannot be used together.')
+
+    if show_trend:
+        samples = show_trend if len(show_trend) <= 10 else show_trend[:10]
+        if len(samples) < 10:
+            samples = [0] * (10 - len(samples)) + samples
+        right_image = trend(
+            samples=samples,
+            stroke_color=(trend_color or right_color),
+            stroke_width=trend_width,
+        )
+
     template = _JINJA2_ENVIRONMENT.get_template('badge-template-full.svg')
 
     if logo and embed_logo:
