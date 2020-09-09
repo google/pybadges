@@ -1,6 +1,6 @@
 {% set logo_width = 14 if logo else 0 %}
 {% set logo_padding = 3 if (logo and left_text) else 0 %}
-{% set image_width = 110 if right_image else 0 %}
+{% set image_width = 107 if right_image else 0 %}
 {% set left_width = image_width + left_text_width + 10 + logo_width + logo_padding %}
 {% set right_width = right_text_width + 10 %}
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{{ left_width + right_width }}" height="20">

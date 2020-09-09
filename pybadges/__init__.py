@@ -199,11 +199,8 @@ def badge(
         raise ValueError('right-image and trend cannot be used together.')
 
     if show_trend:
-        samples = show_trend if len(show_trend) <= 10 else show_trend[:10]
-        if len(samples) < 10:
-            samples = [0] * (10 - len(samples)) + samples
         right_image = trend(
-            samples=samples,
+            samples=show_trend,
             stroke_color=(trend_color or right_color),
             stroke_width=trend_width,
         )
