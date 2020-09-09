@@ -27,10 +27,16 @@ from pybadges.version import __version__
 
 
 def main():
+
+    def csv(values):
+        return [int(value) for value in values.split(",")]
+
+    def boolean(value):
+        return value.lower() in ['y', 'yes', 't', 'true', '1', '']
+
     parser = argparse.ArgumentParser(
         'pybadges',
         description='generate a github-style badge given some text and colors')
-
     parser.add_argument(
         '--left-text',
         default='license',
@@ -52,14 +58,19 @@ def main():
         default=None,
         help='the url to redirect to when the right-hand of the badge is ' +
         'clicked')
+    parser.add_argument('--bg-color',
+                        default='#555',
+                        help='the background color of the badge. Default: #555')
     parser.add_argument(
         '--left-color',
-        default='#555',
-        help='the background color of the left-hand-side of the badge')
+        default='None',
+        help='the background color of the badge containing the left text.'
+        ' If not provided, bg-color is used')
     parser.add_argument(
         '--right-color',
         default='#007ec6',
-        help='the background color of the right-hand-side of the badge')
+        help='the background color of the right-hand-side of the badge.'
+        ' Default: #007ec6')
     parser.add_argument(
         '--logo',
         default=None,
@@ -67,13 +78,25 @@ def main():
     parser.add_argument(
         '--embed-logo',
         nargs='?',
-        type=lambda x: x.lower() in ['y', 'yes', 't', 'true', '1', ''],
+        type=boolean,
         const='yes',
         default='no',
         help='if the logo is specified then include the image data directly in '
         'the badge (this will prevent a URL fetch and may work around the '
         'fact that some browsers do not fetch external image references); '
         'only works if --logo is a HTTP/HTTPS URI or a file path')
+    parser.add_argument(
+        '--right-image',
+        default=None,
+        help='a URI reference to an extra image to be displayed in the badge')
+    parser.add_argument(
+        '--embed-right-image',
+        nargs='?',
+        type=boolean,
+        const='yes',
+        default='no',
+        help='embed right image into the badge. See embed-logo for more details'
+    )
     parser.add_argument('--browser',
                         action='store_true',
                         default=False,
@@ -107,6 +130,23 @@ def main():
         help='the title to associate with the right part of the badge. See '
         'https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title')
     parser.add_argument(
+        '--show-trend',
+        default=None,
+        type=csv,
+        help='accepts comma separated integers (least to most recent) and'
+        ' plots a trend line showing variation of that data. If both'
+        ' --show-trend is passed, right image should not be used. It needs'
+        ' additional dependencies installed: drawSvg and numpy.')
+    parser.add_argument(
+        '--trend-color',
+        default=None,
+        help='the color of the trend-line. if not supplied, it is plotted'
+        ' in the same color as right-color')
+    parser.add_argument('--trend-width',
+                        type=int,
+                        default=1,
+                        help='the width of the trend-line. default: 1')
+    parser.add_argument(
         '-v',
         '--version',
         action='version',
@@ -116,6 +156,10 @@ def main():
     if (args.left_link or args.right_link) and args.whole_link:
         print('argument --whole-link: cannot be set with ' +
               '--left-link or --right-link',
+              file=sys.stderr)
+        sys.exit(1)
+    if args.show_trend and args.right_image:
+        print('argument --right-image: cannot be used with --show-trend',
               file=sys.stderr)
         sys.exit(1)
 
@@ -129,19 +173,27 @@ def main():
         from pybadges import pil_text_measurer
         measurer = pil_text_measurer.PilMeasurer(args.deja_vu_sans_path)
 
-    badge = pybadges.badge(left_text=args.left_text,
-                           right_text=args.right_text,
-                           left_link=args.left_link,
-                           right_link=args.right_link,
-                           whole_link=args.whole_link,
-                           left_color=args.left_color,
-                           right_color=args.right_color,
-                           logo=args.logo,
-                           measurer=measurer,
-                           embed_logo=args.embed_logo,
-                           whole_title=args.whole_title,
-                           left_title=args.left_title,
-                           right_title=args.right_title)
+    badge = pybadges.badge(
+        left_text=args.left_text,
+        right_text=args.right_text,
+        left_link=args.left_link,
+        right_link=args.right_link,
+        whole_link=args.whole_link,
+        bg_color=args.bg_color,
+        left_color=args.left_color,
+        right_color=args.right_color,
+        logo=args.logo,
+        measurer=measurer,
+        embed_logo=args.embed_logo,
+        whole_title=args.whole_title,
+        left_title=args.left_title,
+        right_title=args.right_title,
+        right_image=args.right_image,
+        embed_right_image=args.embed_right_image,
+        show_trend=args.show_trend,
+        trend_color=args.trend_color,
+        trend_width=args.trend_width,
+    )
 
     if args.browser:
         _, badge_path = tempfile.mkstemp(suffix='.svg')

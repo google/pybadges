@@ -32,7 +32,7 @@ gh-badges library
 import base64
 import imghdr
 import mimetypes
-from typing import Optional
+from typing import List, Optional
 import urllib.parse
 from xml.dom import minidom
 
@@ -42,6 +42,11 @@ import requests
 from pybadges import text_measurer
 from pybadges import precalculated_text_measurer
 from pybadges.version import __version__
+
+try:
+    from pybadges.trend import trend
+except:
+    trend = None
 
 _JINJA2_ENVIRONMENT = jinja2.Environment(
     trim_blocks=True,
@@ -119,13 +124,19 @@ def badge(
     right_link: Optional[str] = None,
     whole_link: Optional[str] = None,
     logo: Optional[str] = None,
-    left_color: str = '#555',
+    bg_color: str = '#555',
+    left_color: Optional[str] = None,
     right_color: str = '#007ec6',
     measurer: Optional[text_measurer.TextMeasurer] = None,
     embed_logo: bool = False,
     whole_title: Optional[str] = None,
     left_title: Optional[str] = None,
     right_title: Optional[str] = None,
+    right_image: Optional[str] = None,
+    embed_right_image: bool = False,
+    show_trend: Optional[List[int]] = None,
+    trend_color: Optional[str] = None,
+    trend_width: Optional[int] = 1,
 ) -> str:
     """Creates a github-style badge as an SVG image.
 
@@ -148,16 +159,13 @@ def badge(
             selected. If set then left_link and right_right may not be set.
         logo: A url representing a logo that will be displayed inside the
             badge. Can be a data URL e.g. "data:image/svg+xml;utf8,<svg..."
-        left_color: The color of the part of the badge containing the left-hand
-            text. Can be an valid CSS color
+        bg_color: The background color of the badge. Default: #555. Can be an valid CSS color
             (see https://developer.mozilla.org/en-US/docs/Web/CSS/color) or a
             color name defined here:
             https://github.com/badges/shields/blob/master/lib/colorscheme.json
+        left_color: The color of the part of the badge containing the left text. If not specified, bg_color is used
         right_color: The color of the part of the badge containing the
-            right-hand text. Can be an valid CSS color
-            (see https://developer.mozilla.org/en-US/docs/Web/CSS/color) or a
-            color name defined here:
-            https://github.com/badges/shields/blob/master/lib/colorscheme.json
+            right-hand text. Default: #007ec6 (blue)
         measurer: A text_measurer.TextMeasurer that can be used to measure the
             width of left_text and right_text.
         embed_logo: If True then embed the logo image directly in the badge.
@@ -173,6 +181,16 @@ def badge(
         right_title: The title attribute to associate with the right part of
             the badge.
             See https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title.
+        right_image: A url representing a image which can be embedded before right_text.
+            Can be a data URL e.g. "data:image/svg+xml;utf8,<svg..."
+        embed_right_image: If True, the right image is embedded into the badge
+            itself and saves an additional HTTP request. See embed_logo.
+        show_trend: accepts comma separated integers (least to most recent), and plots a
+            trend line showing variation of that data. If both show_trend and right_image
+            are passed, ValueError is raised. Needs additional dependencies installed:
+            numpy and drawSvg.
+        trend_color: color of the trend line. If not supplied, right_color is used.
+        trend_width: stroke width of the trend line.
     """
     if measurer is None:
         measurer = (
@@ -181,10 +199,27 @@ def badge(
     if (left_link or right_link) and whole_link:
         raise ValueError(
             'whole_link may not bet set with left_link or right_link')
+
+    if show_trend and right_image:
+        raise ValueError('right-image and trend cannot be used together.')
+
+    if show_trend:
+        if trend is None:
+            raise ValueError('Additional dependencies not installed.')
+
+        right_image = trend(
+            samples=show_trend,
+            stroke_color=(trend_color or right_color),
+            stroke_width=trend_width,
+        )
+
     template = _JINJA2_ENVIRONMENT.get_template('badge-template-full.svg')
 
     if logo and embed_logo:
         logo = _embed_image(logo)
+
+    if right_image and embed_right_image:
+        right_image = _embed_image(right_image)
 
     svg = template.render(
         left_text=left_text,
@@ -195,11 +230,13 @@ def badge(
         right_link=right_link,
         whole_link=whole_link,
         logo=logo,
+        bg_color=_NAME_TO_COLOR.get(bg_color, bg_color),
         left_color=_NAME_TO_COLOR.get(left_color, left_color),
         right_color=_NAME_TO_COLOR.get(right_color, right_color),
         whole_title=whole_title,
         left_title=left_title,
         right_title=right_title,
+        right_image=right_image,
     )
     xml = minidom.parseString(svg)
     _remove_blanks(xml)

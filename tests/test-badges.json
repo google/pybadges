@@ -29,7 +29,7 @@
     "file_name": "complete.svg",
     "left_text": "complete",
     "right_text": "example",
-    "left_color": "green",
+    "bg_color": "green",
     "right_color": "#fb3",
     "left_link": "http://www.complete.com/",
     "right_link": "http://www.example.com",
@@ -43,7 +43,7 @@
     "file_name": "complete.svg",
     "left_text": "complete",
     "right_text": "example",
-    "left_color": "green",
+    "bg_color": "green",
     "right_color": "#fb3",
     "left_link": "http://www.complete.com/",
     "right_link": "http://www.example.com",
@@ -121,7 +121,7 @@
     "file_name": "tests.svg",
     "left_text": "tests",
     "right_text": "231 passed, 1 failed, 1 skipped",
-    "left_color": "blue",
+    "bg_color": "blue",
     "right_color": "orange"
   }
 ]
