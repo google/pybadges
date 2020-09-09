@@ -60,7 +60,7 @@ def main():
         'clicked')
     parser.add_argument('--bg-color',
                         default='#555',
-                        help='the background color of the badge')
+                        help='the background color of the badge. Default: #555')
     parser.add_argument(
         '--left-color',
         default='None',
@@ -69,7 +69,8 @@ def main():
     parser.add_argument(
         '--right-color',
         default='#007ec6',
-        help='the background color of the right-hand-side of the badge')
+        help='the background color of the right-hand-side of the badge.'
+        ' Default: #007ec6')
     parser.add_argument(
         '--logo',
         default=None,
@@ -132,8 +133,10 @@ def main():
         '--show-trend',
         default=None,
         type=csv,
-        help='up to ten integral values to be plotted as a trend. If'
-        ' --show-trend is passed, right image should not be used.')
+        help='accepts comma separated integers (least to most recent) and'
+        ' plots a trend line showing variation of that data. If both'
+        ' --show-trend is passed, right image should not be used. It needs'
+        ' additional dependencies installed: drawSvg and numpy.')
     parser.add_argument(
         '--trend-color',
         default=None,
@@ -156,7 +159,7 @@ def main():
               file=sys.stderr)
         sys.exit(1)
     if args.show_trend and args.right_image:
-        print('argument --right-image: cannot be used with ' + '--show-trend',
+        print('argument --right-image: cannot be used with --show-trend',
               file=sys.stderr)
         sys.exit(1)
 

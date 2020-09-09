@@ -40,9 +40,13 @@ import jinja2
 import requests
 
 from pybadges import text_measurer
-from pybadges.trend import trend
 from pybadges import precalculated_text_measurer
 from pybadges.version import __version__
+
+try:
+    from pybadges.trend import trend
+except:
+    trend = None
 
 _JINJA2_ENVIRONMENT = jinja2.Environment(
     trim_blocks=True,
@@ -183,7 +187,8 @@ def badge(
             itself and saves an additional HTTP request. See embed_logo.
         show_trend: accepts comma separated integers (least to most recent), and plots a
             trend line showing variation of that data. If both show_trend and right_image
-            are passed, ValueError is raised.
+            are passed, ValueError is raised. Needs additional dependencies installed:
+            numpy and drawSvg.
         trend_color: color of the trend line. If not supplied, right_color is used.
         trend_width: stroke width of the trend line.
     """
@@ -199,6 +204,9 @@ def badge(
         raise ValueError('right-image and trend cannot be used together.')
 
     if show_trend:
+        if trend is None:
+            raise ValueError('Additional dependencies not installed.')
+
         right_image = trend(
             samples=show_trend,
             stroke_color=(trend_color or right_color),
