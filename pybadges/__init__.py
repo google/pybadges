@@ -155,13 +155,13 @@ def badge(
             selected. If set then left_link and right_right may not be set.
         logo: A url representing a logo that will be displayed inside the
             badge. Can be a data URL e.g. "data:image/svg+xml;utf8,<svg..."
-        bg_color: The background color of the badge. Can be an valid CSS color
+        bg_color: The background color of the badge. Default: #555. Can be an valid CSS color
             (see https://developer.mozilla.org/en-US/docs/Web/CSS/color) or a
             color name defined here:
             https://github.com/badges/shields/blob/master/lib/colorscheme.json
         left_color: The color of the part of the badge containing the left text. If not specified, bg_color is used
         right_color: The color of the part of the badge containing the
-            right-hand text.
+            right-hand text. Default: #007ec6 (blue)
         measurer: A text_measurer.TextMeasurer that can be used to measure the
             width of left_text and right_text.
         embed_logo: If True then embed the logo image directly in the badge.
@@ -181,8 +181,9 @@ def badge(
             Can be a data URL e.g. "data:image/svg+xml;utf8,<svg..."
         embed_right_image: If True, the right image is embedded into the badge
             itself and saves an additional HTTP request. See embed_logo.
-        show_trend: plot a trend with not more than 10 data points passed. if both
-            show_trend and right_image are passed, ValueError is raised.
+        show_trend: accepts comma separated integers (least to most recent), and plots a
+            trend line showing variation of that data. If both show_trend and right_image
+            are passed, ValueError is raised.
         trend_color: color of the trend line. If not supplied, right_color is used.
         trend_width: stroke width of the trend line.
     """
