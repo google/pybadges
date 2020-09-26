@@ -2,20 +2,22 @@
 {% set logo_padding = 3 if (logo and left_text) else 0 %}
 {% set left_width = left_text_width + 10 + logo_width + logo_padding %}
 {% set right_width = right_text_width + 10 %}
+{% set id_smooth = 'smooth' + id_suffix %}
+{% set id_round = 'round' + id_suffix %}
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{{ left_width + right_width }}" height="20">
   {% if whole_title %}
     <title>{{ whole_title }}</title>
   {% endif %}
-  <linearGradient id="smooth" x2="0" y2="100%">
+  <linearGradient id="{{ id_smooth }}" x2="0" y2="100%">
       <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
     <stop offset="1" stop-opacity=".1"/>
   </linearGradient>
 
-  <clipPath id="round">
+  <clipPath id="{{ id_round }}">
     <rect width="{{ left_width + right_width }}" height="20" rx="3" fill="#fff"/>
   </clipPath>
 
-  <g clip-path="url(#round)">
+  <g clip-path="url(#{{ id_round }})">
     <rect width="{{ left_width }}" height="20" fill="{{ left_color }}">
       {% if left_title %}
         <title>{{ left_title }}</title>
@@ -26,7 +28,7 @@
         <title>{{ right_title }}</title>
       {% endif %}
     </rect>
-    <rect width="{{ left_width + right_width }}" height="20" fill="url(#smooth)"/>
+    <rect width="{{ left_width + right_width }}" height="20" fill="url(#{{ id_smooth }})"/>
   </g>
 
   <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="110">
