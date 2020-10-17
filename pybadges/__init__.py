@@ -174,7 +174,9 @@ def badge(
         right_title: The title attribute to associate with the right part of
             the badge.
             See https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title.
-        id_suffix: The suffix of id attribute in element of svg.
+        id_suffix: The suffix of the id attributes used in the SVG's elements.
+            Use to prevent duplicate ids if several badges are embedded on the
+            same page.
     """
     if measurer is None:
         measurer = (
