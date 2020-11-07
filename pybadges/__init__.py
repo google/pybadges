@@ -126,6 +126,7 @@ def badge(
     whole_title: Optional[str] = None,
     left_title: Optional[str] = None,
     right_title: Optional[str] = None,
+    id_suffix: str = '',
 ) -> str:
     """Creates a github-style badge as an SVG image.
 
@@ -173,6 +174,9 @@ def badge(
         right_title: The title attribute to associate with the right part of
             the badge.
             See https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title.
+        id_suffix: The suffix of the id attributes used in the SVG's elements.
+            Use to prevent duplicate ids if several badges are embedded on the
+            same page.
     """
     if measurer is None:
         measurer = (
@@ -200,6 +204,7 @@ def badge(
         whole_title=whole_title,
         left_title=left_title,
         right_title=right_title,
+        id_suffix=id_suffix,
     )
     xml = minidom.parseString(svg)
     _remove_blanks(xml)
