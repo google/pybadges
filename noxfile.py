@@ -65,5 +65,5 @@ def type_check(session):
         session.skip('pytype not supported on Windows')
     session.install('-e', '.[dev]')
     session.install('pytype')
-    session.run('pytype', '--python-version=3.10', '--disable=pyi-error',
+    session.run('pytype', '--python-version=3.7', '--disable=pyi-error',
                 'pybadges')

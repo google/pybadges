@@ -30,10 +30,29 @@ jobs:
             pip install virtualenv
             pip install nox
             nox -f noxfile.py -s compatibility
+  Compatibility Test 3.8:
+    docker:
+      - image: cimg/python:3.8.12
+    steps:
+      - checkout
+      - run:
+          command: |
+            pip install virtualenv
+            pip install nox
+            nox -f noxfile.py -s compatibility
+  Compatibility Test 3.7:
+    docker:
+      - image: cimg/python:3.7.12
+    steps:
+      - checkout
+      - run:
+          command: |
+            pip install virtualenv
+            pip install nox
+            nox -f noxfile.py -s compatibility
   Lint:
     docker:
       - image: cimg/python:3.10.2
-
     steps:
       - checkout
       - run:
@@ -74,6 +93,8 @@ workflows:
       - Unit Test
       - Type Check
       - Compatibility Test 3.10
+      - Compatibility Test 3.9
+      - Compatibility Test 3.8
       - Compatibility Test 3.9
   release:
     jobs:
