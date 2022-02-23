@@ -95,7 +95,7 @@ workflows:
       - Compatibility Test 3.10
       - Compatibility Test 3.9
       - Compatibility Test 3.8
-      - Compatibility Test 3.9
+      - Compatibility Test 3.7
   release:
     jobs:
       - Release:
