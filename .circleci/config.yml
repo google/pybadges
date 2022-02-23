@@ -73,7 +73,8 @@ workflows:
       - Lint
       - Unit Test
       - Type Check
-      - Compatibility Test
+      - Compatibility Test 3.10
+      - Compatibility Test 3.9
   release:
     jobs:
       - Release:
