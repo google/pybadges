@@ -40,7 +40,6 @@ def unit(session):
     _run_tests(session)
 
 
-@nox.session(python=['3.7', '3.8', '3.9', '3.10'])
 @nox.parametrize(
     'install',
     [
@@ -52,13 +51,13 @@ def unit(session):
 def compatibility(session, install):
     """Run the unit test suite with each support library and Python version."""
 
-    session.install('-e', '.[dev]')
-    session.install('-r', 'server-example/requirements-test.txt')
     session.install(install)
+    session.install('-r', 'server-example/requirements-test.txt')
+    session.install('-e', '.[dev]')
     _run_tests(session)
 
 
-@nox.session(python=['3.10'])
+@nox.session(python=['3.7'])
 def type_check(session):
     """Run type checking using pytype."""
     if sys.platform.startswith('win'):

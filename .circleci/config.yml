@@ -3,9 +3,6 @@ jobs:
   Unit Test:
     docker:
       - image: cimg/python:3.10.2
-        auth:
-          username: $DOCKER_USERNAME
-          password: $DOCKER_PASSWORD
     steps:
       - checkout
       - run:
@@ -13,10 +10,19 @@ jobs:
             pip install virtualenv
             pip install nox
             nox -f noxfile.py -s unit
-  Compatibility Test:
+  Compatibility Test 3.10:
     docker:
       - image: cimg/python:3.10.2
-
+    steps:
+      - checkout
+      - run:
+          command: |
+            pip install virtualenv
+            pip install nox
+            nox -f noxfile.py -s compatibility
+  Compatibility Test 3.9:
+    docker:
+      - image: cimg/python:3.9.10
     steps:
       - checkout
       - run:
