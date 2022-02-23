@@ -104,10 +104,9 @@ def calculate_character_to_length_mapping(
     return char_to_length
 
 
-def calculate_pair_to_kern_mapping(
-        measurer: text_measurer.TextMeasurer, char_to_length: Mapping[str,
-                                                                      float],
-        characters: Iterable[str]) -> Mapping[str, float]:
+def calculate_pair_to_kern_mapping(measurer: text_measurer.TextMeasurer,
+                                   char_to_length: Mapping[str, float],
+                                   characters: str) -> Mapping[str, float]:
     """Returns a mapping between each *pair* of characters and their kerning.
 
     Args:
