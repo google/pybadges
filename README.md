@@ -16,7 +16,7 @@ The aesthetics of the generated badges matches the  visual design found in this
 
 The implementation of the library was heavily influenced by
 [Shields.io](https://github.com/badges/shields) and the JavaScript
-[gh-badges](https://github.com/badges/shields#using-the-badge-library) library.
+[badge-maker](https://github.com/badges/shields/tree/master/badge-maker#badge-maker) library.
 
 ## Getting Started
 
