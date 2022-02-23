@@ -14,6 +14,7 @@
 """Nox config for running lint and unit tests."""
 
 import nox
+import sys
 
 
 def _run_tests(session):
@@ -28,34 +29,41 @@ def lint(session):
     serious code quality issues.
     """
     session.install('yapf')
-    session.run('python3', '-m', 'yapf', '--diff', '-r', '.')
+    session.run('yapf', '--diff', '-r', '.')
 
 
 @nox.session
 def unit(session):
     """Run the unit test suite."""
     session.install('-e', '.[dev]')
-    session.install('-r', 'server-example/requirements-test.txt')
+    session.install('flask')
     _run_tests(session)
 
 
-@nox.session(python=['3.4', '3.5', '3.6', '3.7', '3.8'])
+@nox.session
 @nox.parametrize(
     'install',
-    ['Jinja2==2.9.0', 'Pillow==5.0.0', 'requests==2.9.0', 'xmldiff==2.4'])
+    [
+        'Jinja2==3.0.0',
+        'Pillow==8.3.2',  # Oldest version that supports Python 3.7 to 3.10.
+        'requests==2.22.0',
+        'xmldiff==2.4'
+    ])
 def compatibility(session, install):
     """Run the unit test suite with each support library and Python version."""
 
-    session.install('-e', '.[dev]')
-    session.install('-r', 'server-example/requirements-test.txt')
     session.install(install)
+    session.install('-r', 'server-example/requirements-test.txt')
+    session.install('-e', '.[dev]')
     _run_tests(session)
 
 
-@nox.session(python=['3.6'])
+@nox.session(python=['3.7'])
 def type_check(session):
     """Run type checking using pytype."""
+    if sys.platform.startswith('win'):
+        session.skip('pytype not supported on Windows')
     session.install('-e', '.[dev]')
     session.install('pytype')
-    session.run('pytype', '--python-version=3.6', '--disable=pyi-error',
+    session.run('pytype', '--python-version=3.7', '--disable=pyi-error',
                 'pybadges')

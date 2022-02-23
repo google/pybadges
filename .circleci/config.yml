@@ -2,59 +2,86 @@ version: 2
 jobs:
   Unit Test:
     docker:
-      - image: circleci/python:3.7.1
-
+      - image: cimg/python:3.10.2
     steps:
       - checkout
       - run:
           command: |
-            sudo pip install virtualenv
-            sudo pip install nox
+            pip install virtualenv
+            pip install nox
             nox -f noxfile.py -s unit
-  Compatibility Test:
+  Compatibility Test 3.10:
     docker:
-      - image: circleci/python:3.7.1
-
+      - image: cimg/python:3.10.2
     steps:
       - checkout
       - run:
           command: |
-            sudo pip install virtualenv
-            sudo pip install nox
+            pip install virtualenv
+            pip install nox
+            nox -f noxfile.py -s compatibility
+  Compatibility Test 3.9:
+    docker:
+      - image: cimg/python:3.9.10
+    steps:
+      - checkout
+      - run:
+          command: |
+            pip install virtualenv
+            pip install nox
+            nox -f noxfile.py -s compatibility
+  Compatibility Test 3.8:
+    docker:
+      - image: cimg/python:3.8.12
+    steps:
+      - checkout
+      - run:
+          command: |
+            pip install virtualenv
+            pip install nox
+            nox -f noxfile.py -s compatibility
+  Compatibility Test 3.7:
+    docker:
+      - image: cimg/python:3.7.12
+    steps:
+      - checkout
+      - run:
+          command: |
+            pip install virtualenv
+            pip install nox
             nox -f noxfile.py -s compatibility
   Lint:
     docker:
-      - image: circleci/python:3.7.1
-
+      - image: cimg/python:3.10.2
     steps:
       - checkout
       - run:
           command: |
-            sudo pip install virtualenv
-            sudo pip install nox
+            pip install virtualenv
+            pip install nox
             nox -f noxfile.py -s lint
   Type Check:
     docker:
-      - image: circleci/python:3.7.1
+      - image: cimg/python:3.7.12
 
     steps:
       - checkout
       - run:
           command: |
-            sudo pip install virtualenv
-            sudo pip install nox
+            pip install virtualenv
+            pip install nox
             nox -f noxfile.py -s type_check
   Release:
     docker:
-      - image: circleci/python:3.7.1
+      - image: cimg/python:3.10.2
 
     steps:
       - checkout
       - run:
          command: |
-          sudo pip install --upgrade twine
-          sudo pip install --upgrade wheel
-          sudo pip install --upgrade setuptools
+          pip install --upgrade twine
+          pip install --upgrade wheel
+          pip install --upgrade setuptools
           source twine_upload.sh
 
 
@@ -65,7 +92,10 @@ workflows:
       - Lint
       - Unit Test
       - Type Check
-      - Compatibility Test
+      - Compatibility Test 3.10
+      - Compatibility Test 3.9
+      - Compatibility Test 3.8
+      - Compatibility Test 3.7
   release:
     jobs:
       - Release:
