@@ -40,6 +40,7 @@ def unit(session):
     _run_tests(session)
 
 
+@nox.session
 @nox.parametrize(
     'install',
     [
