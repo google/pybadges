@@ -37,7 +37,7 @@ jobs:
             nox -f noxfile.py -s lint
   Type Check:
     docker:
-      - image: cimg/python:3.10.2
+      - image: cimg/python:3.7.12
 
     steps:
       - checkout
