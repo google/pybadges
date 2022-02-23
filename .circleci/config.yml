@@ -10,8 +10,8 @@ jobs:
       - checkout
       - run:
           command: |
-            sudo pip install virtualenv
-            sudo pip install nox
+            pip install virtualenv
+            pip install nox
             nox -f noxfile.py -s unit
   Compatibility Test:
     docker:
@@ -21,8 +21,8 @@ jobs:
       - checkout
       - run:
           command: |
-            sudo pip install virtualenv
-            sudo pip install nox
+            pip install virtualenv
+            pip install nox
             nox -f noxfile.py -s compatibility
   Lint:
     docker:
@@ -32,8 +32,8 @@ jobs:
       - checkout
       - run:
           command: |
-            sudo pip install virtualenv
-            sudo pip install nox
+            pip install virtualenv
+            pip install nox
             nox -f noxfile.py -s lint
   Type Check:
     docker:
@@ -43,8 +43,8 @@ jobs:
       - checkout
       - run:
           command: |
-            sudo pip install virtualenv
-            sudo pip install nox
+            pip install virtualenv
+            pip install nox
             nox -f noxfile.py -s type_check
   Release:
     docker:
@@ -54,9 +54,9 @@ jobs:
       - checkout
       - run:
          command: |
-          sudo pip install --upgrade twine
-          sudo pip install --upgrade wheel
-          sudo pip install --upgrade setuptools
+          pip install --upgrade twine
+          pip install --upgrade wheel
+          pip install --upgrade setuptools
           source twine_upload.sh
 
 
