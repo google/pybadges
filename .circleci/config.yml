@@ -2,7 +2,7 @@ version: 2
 jobs:
   Unit Test:
     docker:
-      - image: circleci/python:3.7.1
+      - image: circleci/python:3.10.2
 
     steps:
       - checkout
@@ -13,7 +13,7 @@ jobs:
             nox -f noxfile.py -s unit
   Compatibility Test:
     docker:
-      - image: circleci/python:3.7.1
+      - image: circleci/python:3.10.2
 
     steps:
       - checkout
@@ -24,7 +24,7 @@ jobs:
             nox -f noxfile.py -s compatibility
   Lint:
     docker:
-      - image: circleci/python:3.7.1
+      - image: circleci/python:3.10.2
 
     steps:
       - checkout
@@ -35,7 +35,7 @@ jobs:
             nox -f noxfile.py -s lint
   Type Check:
     docker:
-      - image: circleci/python:3.7.1
+      - image: circleci/python:3.10.2
 
     steps:
       - checkout
@@ -46,7 +46,7 @@ jobs:
             nox -f noxfile.py -s type_check
   Release:
     docker:
-      - image: circleci/python:3.7.1
+      - image: circleci/python:3.10.2
 
     steps:
       - checkout
