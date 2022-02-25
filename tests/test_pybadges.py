@@ -53,14 +53,35 @@ class TestPybadgesBadge(unittest.TestCase):
         for example in examples:
             file_name = example.pop('file_name')
             with self.subTest(example=file_name):
-                filepath = os.path.join(TEST_DIR, 'golden-images', file_name)
+                goldenpath = os.path.join(TEST_DIR, 'golden-images', file_name)
 
-                with open(filepath, mode="r", encoding="utf-8") as f:
+                with open(goldenpath, mode="r", encoding="utf-8") as f:
                     golden_image = f.read()
                 pybadge_image = pybadges.badge(**example)
 
                 diff = xmldiff.main.diff_texts(golden_image, pybadge_image)
-                self.assertFalse(diff)
+                if diff:
+                    with tempfile.NamedTemporaryFile(mode="w+t",
+                                                     encoding="utf-8",
+                                                     delete=False,
+                                                     suffix=".svg") as actual:
+                        actual.write(pybadge_image)
+
+                    with tempfile.NamedTemporaryFile(mode="w+t",
+                                                     delete=False,
+                                                     suffix=".html") as html:
+                        html.write("""
+                        <html>
+                            <body>
+                                <img src="file://%s"><br>
+                                <img src="file://%s">
+                            <body>
+                        </html>""" % (goldenpath, actual.name))
+                    self.fail(
+                        "images for %s differ:\n%s\nview with:\npython -m webbrowser %s"
+                        % (file_name, diff, html.name))
+
+                self.assertFalse(diff,)
 
 
 class TestEmbedImage(unittest.TestCase):

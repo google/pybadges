@@ -70,7 +70,12 @@ setup(
     extras_require={
         'pil-measurement': ['Pillow>=6,<10'],
         'dev': [
-            'fonttools>=3.26', 'nox', 'Pillow>=5', 'pytest>=3.6', 'xmldiff>=2.4'
+            'Flask>=2.0',  # For server tests. 
+            'fonttools>=3.26',
+            'nox',
+            'Pillow>=5',
+            'pytest>=3.6',
+            'xmldiff>=2.4'
         ],
     },
     license='Apache-2.0',
