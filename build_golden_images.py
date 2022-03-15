@@ -21,17 +21,25 @@ import os.path
 import pkg_resources
 
 import pybadges
+from tests import image_server
+from tests import test_pybadges
 
 
 def generate_images(source_json_path, target_directory):
-    os.makedirs(target_directory, exist_ok=True)
-    with open(source_json_path) as f:
-        examples = json.load(f)
+    srv = image_server.ImageServer(test_pybadges.PNG_IMAGE)
+    srv.start_server()
+    try:
+        os.makedirs(target_directory, exist_ok=True)
+        with open(source_json_path) as f:
+            examples = json.load(f)
 
-    for example in examples:
-        filename = os.path.join(target_directory, example.pop('file_name'))
-        with open(filename, 'w') as f:
-            f.write(pybadges.badge(**example))
+        for example in examples:
+            srv.fix_embedded_url_reference(example)
+            filename = os.path.join(target_directory, example.pop('file_name'))
+            with open(filename, 'w', encoding='utf-8') as f:
+                f.write(pybadges.badge(**example))
+    finally:
+        srv.stop_server()
 
 
 def main():

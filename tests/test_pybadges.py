@@ -17,13 +17,14 @@ import base64
 import doctest
 import json
 import os.path
-import unittest
 import pathlib
 import sys
 import tempfile
+import unittest
 import xmldiff.main
 
 import pybadges
+from tests import image_server
 
 TEST_DIR = os.path.dirname(__file__)
 
@@ -35,6 +36,15 @@ PNG_IMAGE = base64.b64decode(PNG_IMAGE_B64)
 
 class TestPybadgesBadge(unittest.TestCase):
     """Tests for pybadges.badge."""
+
+    def setUp(self):
+        super().setUp()
+        self._image_server = image_server.ImageServer(PNG_IMAGE)
+        self._image_server.start_server()
+
+    def tearDown(self):
+        super().tearDown()
+        self._image_server.stop_server()
 
     def test_docs(self):
         doctest.testmod(pybadges, optionflags=doctest.ELLIPSIS)
@@ -51,6 +61,7 @@ class TestPybadgesBadge(unittest.TestCase):
             examples = json.load(f)
 
         for example in examples:
+            self._image_server.fix_embedded_url_reference(example)
             file_name = example.pop('file_name')
             with self.subTest(example=file_name):
                 goldenpath = os.path.join(TEST_DIR, 'golden-images', file_name)
@@ -80,8 +91,6 @@ class TestPybadgesBadge(unittest.TestCase):
                     self.fail(
                         "images for %s differ:\n%s\nview with:\npython -m webbrowser %s"
                         % (file_name, diff, html.name))
-
-                self.assertFalse(diff,)
 
 
 class TestEmbedImage(unittest.TestCase):
