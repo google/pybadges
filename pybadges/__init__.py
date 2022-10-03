@@ -114,7 +114,7 @@ def _embed_image(url: str) -> str:
 
 def badge(
     left_text: str,
-    right_text: str,
+    right_text: Optional[str] = None,
     left_link: Optional[str] = None,
     right_link: Optional[str] = None,
     whole_link: Optional[str] = None,
@@ -190,11 +190,15 @@ def badge(
     if logo and embed_logo:
         logo = _embed_image(logo)
 
+    right_text_width = None
+    if right_text:
+        right_text_width = measurer.text_width(right_text) / 10.0
+
     svg = template.render(
         left_text=left_text,
         right_text=right_text,
         left_text_width=measurer.text_width(left_text) / 10.0,
-        right_text_width=measurer.text_width(right_text) / 10.0,
+        right_text_width=right_text_width,
         left_link=left_link,
         right_link=right_link,
         whole_link=whole_link,

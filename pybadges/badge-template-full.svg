@@ -1,7 +1,7 @@
 {% set logo_width = 14 if logo else 0 %}
 {% set logo_padding = 3 if (logo and left_text) else 0 %}
 {% set left_width = left_text_width + 10 + logo_width + logo_padding %}
-{% set right_width = right_text_width + 10 %}
+{% set right_width = right_text_width + 10 if right_text_width else 0 %}
 {% set id_smooth = 'smooth' + id_suffix %}
 {% set id_round = 'round' + id_suffix %}
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{{ left_width + right_width }}" height="20">
@@ -37,8 +37,10 @@
     {% endif %}
     <text x="{{ (((left_width+logo_width+logo_padding)/2)+1)*10 }}" y="150" fill="#010101" fill-opacity=".3" transform="scale(0.1)" textLength="{{ (left_width-(10+logo_width+logo_padding))*10 }}" lengthAdjust="spacing">{{ left_text }}</text>
     <text x="{{ (((left_width+logo_width+logo_padding)/2)+1)*10 }}" y="140" transform="scale(0.1)" textLength="{{ (left_width-(10+logo_width+logo_padding))*10 }}" lengthAdjust="spacing">{{ left_text }}</text>
+    {% if right_text %}
     <text x="{{ (left_width+right_width/2-1)*10 }}" y="150" fill="#010101" fill-opacity=".3" transform="scale(0.1)" textLength="{{ (right_width-10)*10 }}" lengthAdjust="spacing">{{ right_text }}</text>
-    <text x="{{ (left_width+right_width/2-1)*10 }}" y="140" transform="scale(0.1)" textLength="{{ (right_width-10)*10 }}" lengthAdjust="spacing">{{ right_text}}</text>
+    <text x="{{ (left_width+right_width/2-1)*10 }}" y="140" transform="scale(0.1)" textLength="{{ (right_width-10)*10 }}" lengthAdjust="spacing">{{ right_text }}</text>
+    {% endif %}
 
   {% if left_link or whole_link %}
     <a xlink:href="{{ left_link or wholelink }}">

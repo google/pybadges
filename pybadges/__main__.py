@@ -37,7 +37,7 @@ def main():
         help='the text to show on the left-hand-side of the badge')
     parser.add_argument(
         '--right-text',
-        default='APACHE',
+        default=None,
         help='the text to show on the right-hand-side of the badge')
     parser.add_argument('--whole-link',
                         default=None,
