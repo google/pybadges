@@ -117,15 +117,22 @@ def badge(
     right_text: Optional[str] = None,
     left_link: Optional[str] = None,
     right_link: Optional[str] = None,
+    center_link: Optional[str] = None,
     whole_link: Optional[str] = None,
     logo: Optional[str] = None,
     left_color: str = '#555',
     right_color: str = '#007ec6',
+    center_color: str = '#555',
     measurer: Optional[text_measurer.TextMeasurer] = None,
-    embed_logo: bool = False,
-    whole_title: Optional[str] = None,
     left_title: Optional[str] = None,
     right_title: Optional[str] = None,
+    center_title: Optional[str] = None,
+    whole_title: Optional[str] = None,
+    right_image: Optional[str] = None,
+    center_image: Optional[str] = None,
+    embed_logo: bool = False,
+    embed_right_image: bool = False,
+    embed_center_image: bool = False,
     id_suffix: str = '',
 ) -> str:
     """Creates a github-style badge as an SVG image.
@@ -182,13 +189,24 @@ def badge(
         measurer = (
             precalculated_text_measurer.PrecalculatedTextMeasurer.default())
 
-    if (left_link or right_link) and whole_link:
+    if (left_link or right_link or center_link) and whole_link:
         raise ValueError(
-            'whole_link may not bet set with left_link or right_link')
+            'whole_link may not bet set with left_link, right_link, or center_link'
+        )
+
+    if right_image and center_image:
+        raise ValueError('cannot have both right_image and center_image')
+
     template = _JINJA2_ENVIRONMENT.get_template('badge-template-full.svg')
 
     if logo and embed_logo:
         logo = _embed_image(logo)
+
+    if right_image and embed_right_image:
+        right_image = _embed_image(right_image)
+
+    if center_image and embed_center_image:
+        center_image = _embed_image(center_image)
 
     right_text_width = None
     if right_text:
@@ -202,12 +220,17 @@ def badge(
         left_link=left_link,
         right_link=right_link,
         whole_link=whole_link,
+        center_link=center_link,
         logo=logo,
         left_color=_NAME_TO_COLOR.get(left_color, left_color),
         right_color=_NAME_TO_COLOR.get(right_color, right_color),
-        whole_title=whole_title,
+        center_color=_NAME_TO_COLOR.get(center_color, center_color),
         left_title=left_title,
         right_title=right_title,
+        center_title=center_title,
+        whole_title=whole_title,
+        right_image=right_image,
+        center_image=center_image,
         id_suffix=id_suffix,
     )
     xml = minidom.parseString(svg)
