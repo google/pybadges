@@ -22,6 +22,7 @@ import sys
 import tempfile
 import webbrowser
 
+sys.path.append('/home/nick/git/pybadges/')
 import pybadges
 from pybadges.version import __version__
 
@@ -71,7 +72,7 @@ def main():
         help='the background color of the right-hand-side of the badge')
     parser.add_argument(
         '--center-color',
-        default='#555',
+        default=None,
         help='the background color of the right-hand-side of the badge')
     parser.add_argument('--browser',
                         action='store_true',

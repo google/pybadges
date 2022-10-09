@@ -1,8 +1,9 @@
 {% set logo_width = 14 if logo else 0 %}
 {% set logo_padding = 3 if (logo and left_text) else 0 %}
+{% set image_width = 107 if center_image else 0 %}
 {% set left_width = left_text_width + 10 + logo_width + logo_padding %}
-{% set right_width = right_text_width + 10 if right_text_width else 0 %}
-{% set image_width = 107 if right_image else 0 %}
+{% set center_width = image_width + 10 if center_image else 0 %}
+{% set right_width = center_width + right_text_width + 10 if right_text else 0 %}
 {% set id_smooth = 'smooth' + id_suffix %}
 {% set id_round = 'round' + id_suffix %}
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{{ left_width + right_width }}" height="20">
@@ -19,31 +20,43 @@
   </clipPath>
 
   <g clip-path="url(#{{ id_round }})">
-    <rect width="{{ left_width }}" height="20" fill="{{ left_color }}">
+    
+    <rect width="{{ left_width }}" height="20" fill="{{ left_color }}"> 
       {% if left_title %}
         <title>{{ left_title }}</title>
       {% endif %}
     </rect>
-    <rect x="{{ left_width }}" width="{{ right_width }}" height="20" fill="{{ right_color }}">
+    
+    {% if center_image %}
+    <rect x="{{ left_width }}" width="{{ center_width }}" height="20" fill="{{ center_color }}"> 
+      {% if center_title %}
+        <title>{{ center_title }}</title>
+      {% endif %}
+    </rect>
+    {% endif %}
+
+    <rect x="{{ left_width + center_width }}" width="{{ right_width }}" height="20" fill="{{ right_color }}">
       {% if right_title %}
         <title>{{ right_title }}</title>
       {% endif %}
     </rect>
+
+    <rect x="{{ logo_width + 2*logo_padding }}" width="{{ left_text_width + 7 }}" height="20" fill="{{ left_color }}"/>
     <rect width="{{ left_width + right_width }}" height="20" fill="url(#{{ id_smooth }})"/>
   </g>
 
   <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="110">
     {% if logo %}
-      <image x="5" y="3" width="{{ logo_width}}" height="14" xlink:href="{{ logo}}"/>
+      <image x="5" y="3" width="{{ logo_width }}" height="14" xlink:href="{{ logo}}"/>
     {% endif %}
     <text x="{{ (((left_width+logo_width+logo_padding)/2)+1)*10 }}" y="150" fill="#010101" fill-opacity=".3" transform="scale(0.1)" textLength="{{ (left_width-(10+logo_width+logo_padding))*10 }}" lengthAdjust="spacing">{{ left_text }}</text>
     <text x="{{ (((left_width+logo_width+logo_padding)/2)+1)*10 }}" y="140" transform="scale(0.1)" textLength="{{ (left_width-(10+logo_width+logo_padding))*10 }}" lengthAdjust="spacing">{{ left_text }}</text>
-    {% if right_image %}
-      <image x="{{ left_width-image_width }}" y="3" width="{{ image_width }}" height="14" xlink:href="{{ right_image }}"/>
+    {% if center_image %}
+      <image x="{{ left_width }}" y="3" width="{{ center_width }}" height="14" xlink:href="{{ center_image }}"/>
     {% endif %}
     {% if right_text %}
-    <text x="{{ (left_width+right_width/2-1)*10 }}" y="150" fill="#010101" fill-opacity=".3" transform="scale(0.1)" textLength="{{ (right_width-10)*10 }}" lengthAdjust="spacing">{{ right_text }}</text>
-    <text x="{{ (left_width+right_width/2-1)*10 }}" y="140" transform="scale(0.1)" textLength="{{ (right_width-10)*10 }}" lengthAdjust="spacing">{{ right_text }}</text>
+        <text x="{{ (left_width+center_width/2+right_width/2-1)*10 }}" y="150" fill="#010101" fill-opacity=".3" transform="scale(0.1)" textLength="{{ (right_width-center_width-10)*10 }}" lengthAdjust="spacing">{{ right_text }}</text>
+        <text x="{{ (left_width+center_width/2+right_width/2-1)*10 }}" y="140" transform="scale(0.1)" textLength="{{ (right_width-center_width-10)*10 }}" lengthAdjust="spacing">{{ right_text }}</text>
     {% endif %}
 
   {% if left_link or whole_link %}

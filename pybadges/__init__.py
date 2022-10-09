@@ -122,7 +122,7 @@ def badge(
     logo: Optional[str] = None,
     left_color: str = '#555',
     right_color: str = '#007ec6',
-    center_color: str = '#555',
+    center_color: Optional[str] = None,
     measurer: Optional[text_measurer.TextMeasurer] = None,
     left_title: Optional[str] = None,
     right_title: Optional[str] = None,
@@ -193,11 +193,13 @@ def badge(
         raise ValueError(
             'whole_link may not bet set with left_link, right_link, or center_link'
         )
+    
+    # NOTE: Can only have a center_* element if also a right_* element
+    if center_image and not (right_image or right_text):
+        raise ValueError('cannot have a center_image without a right element')
 
-    if right_image and center_image:
-        raise ValueError('cannot have both right_image and center_image')
-
-    template = _JINJA2_ENVIRONMENT.get_template('badge-template-full.svg')
+    if (center_image and not center_color) or (not center_image and center_color):
+        raise ValueError('must have both a center_image and a center_color')
 
     if logo and embed_logo:
         logo = _embed_image(logo)
@@ -208,9 +210,14 @@ def badge(
     if center_image and embed_center_image:
         center_image = _embed_image(center_image)
 
+    if center_color:
+        center_color = _NAME_TO_COLOR.get(center_color, center_color)
+
     right_text_width = None
     if right_text:
         right_text_width = measurer.text_width(right_text) / 10.0
+
+    template = _JINJA2_ENVIRONMENT.get_template('badge-template-full.svg')
 
     svg = template.render(
         left_text=left_text,
@@ -224,7 +231,7 @@ def badge(
         logo=logo,
         left_color=_NAME_TO_COLOR.get(left_color, left_color),
         right_color=_NAME_TO_COLOR.get(right_color, right_color),
-        center_color=_NAME_TO_COLOR.get(center_color, center_color),
+        center_color=center_color,
         left_title=left_title,
         right_title=right_title,
         center_title=center_title,
