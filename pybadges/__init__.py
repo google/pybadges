@@ -194,7 +194,6 @@ def badge(
             'whole_link may not bet set with left_link, right_link, or center_link'
         )
     
-    # NOTE: Can only have a center_* element if also a right_* element
     if center_image and not (right_image or right_text):
         raise ValueError('cannot have a center_image without a right element')
 
