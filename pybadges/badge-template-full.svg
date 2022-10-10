@@ -41,7 +41,6 @@
       {% endif %}
     </rect>
 
-    <rect x="{{ logo_width + 2*logo_padding }}" width="{{ left_text_width + 7 }}" height="20" fill="{{ left_color }}"/>
     <rect width="{{ left_width + right_width }}" height="20" fill="url(#{{ id_smooth }})"/>
   </g>
 
