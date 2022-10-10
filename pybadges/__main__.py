@@ -114,11 +114,11 @@ def main():
     parser.add_argument(
         '--right-image',
         default=None,
-        help='the image to associate with the right-hand side of the badge') 
+        help='the image to associate with the right-hand side of the badge')
     parser.add_argument(
         '--center-image',
         default=None,
-        help='the image to associate with the center of the badge') 
+        help='the image to associate with the center of the badge')
     parser.add_argument(
         '--embed-logo',
         nargs='?',
@@ -135,7 +135,8 @@ def main():
         type=lambda x: x.lower() in ['y', 'yes', 't', 'true', '1', ''],
         const='yes',
         default='no',
-        help='if the right image is specified then include the image data directly in '
+        help=
+        'if the right image is specified then include the image data directly in '
         'the badge (this will prevent a URL fetch and may work around the '
         'fact that some browsers do not fetch external image references); '
         'only works if --logo is a HTTP/HTTPS URI or a file path')
@@ -145,7 +146,8 @@ def main():
         type=lambda x: x.lower() in ['y', 'yes', 't', 'true', '1', ''],
         const='yes',
         default='no',
-        help='if the center image is specified then include the image data directly in '
+        help=
+        'if the center image is specified then include the image data directly in '
         'the badge (this will prevent a URL fetch and may work around the '
         'fact that some browsers do not fetch external image references); '
         'only works if --logo is a HTTP/HTTPS URI or a file path')
@@ -156,7 +158,8 @@ def main():
         version='%(prog)s {version}'.format(version=__version__))
     args = parser.parse_args()
 
-    if (args.left_link or args.right_link or args.center_link) and args.whole_link:
+    if (args.left_link or args.right_link or
+            args.center_link) and args.whole_link:
         print('argument --whole-link: cannot be set with ' +
               '--left-link, --right-link, or --center_link',
               file=sys.stderr)

@@ -193,11 +193,12 @@ def badge(
         raise ValueError(
             'whole_link may not bet set with left_link, right_link, or center_link'
         )
-    
+
     if center_image and not (right_image or right_text):
         raise ValueError('cannot have a center_image without a right element')
 
-    if (center_image and not center_color) or (not center_image and center_color):
+    if (center_image and not center_color) or (not center_image and
+                                               center_color):
         raise ValueError('must have both a center_image and a center_color')
 
     if logo and embed_logo:
