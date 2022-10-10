@@ -41,7 +41,7 @@
     <text x="{{ (left_width+right_width/2-1)*10 }}" y="140" transform="scale(0.1)" textLength="{{ (right_width-10)*10 }}" lengthAdjust="spacing">{{ right_text}}</text>
 
   {% if left_link or whole_link %}
-    <a xlink:href="{{ left_link or wholelink }}">
+    <a xlink:href="{{ left_link or whole_link }}">
       <rect width="{{ left_width }}" height="20" fill="rgba(0,0,0,0)"/>
     </a>
   {% endif %}
