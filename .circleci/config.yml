@@ -92,6 +92,7 @@ workflows:
       - Lint
       - Unit Test
       - Type Check
+      - Compatibility Test 3.11
       - Compatibility Test 3.10
       - Compatibility Test 3.9
       - Compatibility Test 3.8
