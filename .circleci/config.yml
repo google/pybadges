@@ -10,6 +10,16 @@ jobs:
             pip install virtualenv
             pip install nox
             nox -f noxfile.py -s unit
+  Compatibility Test 3.11:
+    docker:
+      - image: cimg/python:3.11.0
+    steps:
+      - checkout
+      - run:
+          command: |
+            pip install virtualenv
+            pip install nox
+            nox -f noxfile.py -s compatibility
   Compatibility Test 3.10:
     docker:
       - image: cimg/python:3.10.2
@@ -92,6 +102,7 @@ workflows:
       - Lint
       - Unit Test
       - Type Check
+      - Compatibility Test 3.11
       - Compatibility Test 3.10
       - Compatibility Test 3.9
       - Compatibility Test 3.8

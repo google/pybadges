@@ -39,7 +39,7 @@ def get_long_description():
 
 setup(
     name='pybadges',
-    version='3.0.0',  # Also change in version.py.
+    version='3.0.1',  # Also change in version.py.
     author='Brian Quinlan',
     author_email='brian@sweetapp.com',
     classifiers=[
@@ -53,6 +53,7 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
         'Operating System :: OS Independent',
     ],
     description='A library and command-line tool for generating Github-style ' +
