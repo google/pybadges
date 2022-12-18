@@ -152,6 +152,10 @@ def main():
         'fact that some browsers do not fetch external image references); '
         'only works if --logo is a HTTP/HTTPS URI or a file path')
     parser.add_argument(
+        '--style',
+        default='flat',
+        help='the style of the badge (flat, flat-square)')
+    parser.add_argument(
         '-v',
         '--version',
         action='version',
@@ -194,7 +198,8 @@ def main():
                            center_image=args.center_image,
                            embed_logo=args.embed_logo,
                            embed_right_image=args.embed_right_image,
-                           embed_center_image=args.embed_center_image)
+                           embed_center_image=args.embed_center_image,
+                           style=args.style)
 
     if args.browser:
         _, badge_path = tempfile.mkstemp(suffix='.svg')
