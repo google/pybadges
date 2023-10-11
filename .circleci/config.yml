@@ -2,7 +2,7 @@ version: 2
 jobs:
   Unit Test:
     docker:
-      - image: cimg/python:3.10.2
+      - image: cimg/python:3.12.0
     steps:
       - checkout
       - run:
@@ -10,6 +10,26 @@ jobs:
             pip install virtualenv
             pip install nox
             nox -f noxfile.py -s unit
+  Compatibility Test 3.12.0:
+    docker:
+      - image: cimg/python:3.12.0
+    steps:
+      - checkout
+      - run:
+          command: |
+            pip install virtualenv
+            pip install nox
+            nox -f noxfile.py -s compatibility
+  Compatibility Test 3.11.6:
+    docker:
+      - image: cimg/python:3.11.6
+    steps:
+      - checkout
+      - run:
+          command: |
+            pip install virtualenv
+            pip install nox
+            nox -f noxfile.py -s compatibility
   Compatibility Test 3.10:
     docker:
       - image: cimg/python:3.10.2
@@ -30,29 +50,9 @@ jobs:
             pip install virtualenv
             pip install nox
             nox -f noxfile.py -s compatibility
-  Compatibility Test 3.8:
-    docker:
-      - image: cimg/python:3.8.12
-    steps:
-      - checkout
-      - run:
-          command: |
-            pip install virtualenv
-            pip install nox
-            nox -f noxfile.py -s compatibility
-  Compatibility Test 3.7:
-    docker:
-      - image: cimg/python:3.7.12
-    steps:
-      - checkout
-      - run:
-          command: |
-            pip install virtualenv
-            pip install nox
-            nox -f noxfile.py -s compatibility
   Lint:
     docker:
-      - image: cimg/python:3.10.2
+      - image: cimg/python:3.12.0
     steps:
       - checkout
       - run:
@@ -62,7 +62,7 @@ jobs:
             nox -f noxfile.py -s lint
   Type Check:
     docker:
-      - image: cimg/python:3.7.12
+      - image: cimg/python:3.12.0
 
     steps:
       - checkout
@@ -73,7 +73,7 @@ jobs:
             nox -f noxfile.py -s type_check
   Release:
     docker:
-      - image: cimg/python:3.10.2
+      - image: cimg/python:3.12.0
 
     steps:
       - checkout
@@ -92,10 +92,10 @@ workflows:
       - Lint
       - Unit Test
       - Type Check
+      - Compatibility Test 3.12
+      - Compatibility Test 3.11
       - Compatibility Test 3.10
       - Compatibility Test 3.9
-      - Compatibility Test 3.8
-      - Compatibility Test 3.7
   release:
     jobs:
       - Release:

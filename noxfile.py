@@ -58,7 +58,7 @@ def compatibility(session, install):
     _run_tests(session)
 
 
-@nox.session(python=['3.7'])
+@nox.session(python=['3.12'])
 def type_check(session):
     """Run type checking using pytype."""
     if sys.platform.startswith('win'):
