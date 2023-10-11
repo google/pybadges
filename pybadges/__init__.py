@@ -64,6 +64,11 @@ _NAME_TO_COLOR = {
     'gray': '#555',
     'lightgrey': '#9f9f9f',
     'lightgray': '#9f9f9f',
+    'critical': '#e05d44',
+    'important': '#fe7d37',
+    'success': '#4c1',
+    'informational': '#007ec6',
+    'inactive': '#9f9f9f',
 }
 
 
@@ -160,12 +165,12 @@ def badge(
             text. Can be an valid CSS color
             (see https://developer.mozilla.org/en-US/docs/Web/CSS/color) or a
             color name defined here:
-            https://github.com/badges/shields/blob/master/lib/colorscheme.json
+            https://github.com/badges/shields/blob/master/badge-maker/lib/color.js
         right_color: The color of the part of the badge containing the
             right-hand text. Can be an valid CSS color
             (see https://developer.mozilla.org/en-US/docs/Web/CSS/color) or a
             color name defined here:
-            https://github.com/badges/shields/blob/master/lib/colorscheme.json
+            https://github.com/badges/shields/blob/master/badge-maker/lib/color.js
         measurer: A text_measurer.TextMeasurer that can be used to measure the
             width of left_text and right_text.
         embed_logo: If True then embed the logo image directly in the badge.
