@@ -11,7 +11,7 @@
     <title>{{ whole_title }}</title>
   {% endif %}
   <linearGradient id="{{ id_smooth }}" x2="0" y2="100%">
-      <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+    <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
     <stop offset="1" stop-opacity=".1"/>
   </linearGradient>
 
@@ -19,20 +19,25 @@
     <rect width="{{ left_width + right_width }}" height="20" rx="3" fill="#fff"/>
   </clipPath>
 
-  <g clip-path="url(#{{ id_round }})">
-    
-    <rect width="{{ left_width }}" height="20" fill="{{ left_color }}"> 
+  <g
+    {% if style == "flat" %}
+      clip-path="url(#{{ id_round }})"
+    {% elif style == "flat-square" %}
+      shape-rendering="crispEdges"
+    {% endif %}
+  >
+    <rect width="{{ left_width }}" height="20" fill="{{ left_color }}">
       {% if left_title %}
         <title>{{ left_title }}</title>
       {% endif %}
     </rect>
-    
+
     {% if center_image %}
-    <rect x="{{ left_width }}" width="{{ center_width }}" height="20" fill="{{ center_color }}"> 
-      {% if center_title %}
-        <title>{{ center_title }}</title>
-      {% endif %}
-    </rect>
+      <rect x="{{ left_width }}" width="{{ center_width }}" height="20" fill="{{ center_color }}">
+        {% if center_title %}
+          <title>{{ center_title }}</title>
+        {% endif %}
+      </rect>
     {% endif %}
 
     <rect x="{{ left_width + center_width }}" width="{{ right_width }}" height="20" fill="{{ right_color }}">
@@ -41,15 +46,22 @@
       {% endif %}
     </rect>
 
-    <rect width="{{ left_width + right_width }}" height="20" fill="url(#{{ id_smooth }})"/>
-  </g>
-
-  <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="110">
-    {% if logo %}
-      <image x="5" y="3" width="{{ logo_width }}" height="14" xlink:href="{{ logo}}"/>
+    {% if style == "flat" %}
+      <rect width="{{ left_width + right_width }}" height="20" fill="url(#{{ id_smooth }})"/>
     {% endif %}
-    <text x="{{ (((left_width+logo_width+logo_padding)/2)+1)*10 }}" y="150" fill="#010101" fill-opacity=".3" transform="scale(0.1)" textLength="{{ (left_width-(10+logo_width+logo_padding))*10 }}" lengthAdjust="spacing">{{ left_text }}</text>
-    <text x="{{ (((left_width+logo_width+logo_padding)/2)+1)*10 }}" y="140" transform="scale(0.1)" textLength="{{ (left_width-(10+logo_width+logo_padding))*10 }}" lengthAdjust="spacing">{{ left_text }}</text>
+  </g>
+  <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="110"
+    {% if style == "flat-square" %}
+     text-rendering="geometricPrecision"
+    {% endif %}
+  >
+    {% if logo %}
+      <image x="5" y="3" width="{{ logo_width }}" height="14" xlink:href="{{ logo }}"/>
+    {% endif %}
+    {% if style == "flat" %}
+      <text x="{{ (((left_width+logo_width+logo_padding)/2)+1)*10 }}" y="150" fill="#010101" fill-opacity=".3" transform="scale(0.1)" textLength="{{ (left_width-(10+logo_width+logo_padding))*10 }}" lengthAdjust="spacing">{{ left_text }}</text>
+    {% endif %}
+      <text x="{{ (((left_width+logo_width+logo_padding)/2)+1)*10 }}" y="140" transform="scale(0.1)" textLength="{{ (left_width-(10+logo_width+logo_padding))*10 }}" lengthAdjust="spacing">{{ left_text }}</text>
     {% if center_image %}
       <image x="{{ left_width }}" y="3" width="{{ center_width }}" height="14" xlink:href="{{ center_image }}"/>
     {% endif %}
@@ -57,8 +69,10 @@
       <image x="{{ left_width + center_width }}" y="3" width="{{ right_width }}" height="14" xlink:href="{{ right_image }}"/>
     {% endif %}
     {% if right_text %}
+      {% if style == "flat" %}
         <text x="{{ (left_width+center_width/2+right_width/2-1)*10 }}" y="150" fill="#010101" fill-opacity=".3" transform="scale(0.1)" textLength="{{ (right_width-center_width-10)*10 }}" lengthAdjust="spacing">{{ right_text }}</text>
-        <text x="{{ (left_width+center_width/2+right_width/2-1)*10 }}" y="140" transform="scale(0.1)" textLength="{{ (right_width-center_width-10)*10 }}" lengthAdjust="spacing">{{ right_text }}</text>
+      {% endif %}
+      <text x="{{ (left_width+center_width/2+right_width/2-1)*10 }}" y="140" transform="scale(0.1)" textLength="{{ (right_width-center_width-10)*10 }}" lengthAdjust="spacing">{{ right_text }}</text>
     {% endif %}
 
   {% if left_link or whole_link %}

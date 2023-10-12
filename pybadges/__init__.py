@@ -139,6 +139,7 @@ def badge(
     embed_right_image: bool = False,
     embed_center_image: bool = False,
     id_suffix: str = '',
+    style: str = 'flat',
 ) -> str:
     """Creates a github-style badge as an SVG image.
 
@@ -189,6 +190,7 @@ def badge(
         id_suffix: The suffix of the id attributes used in the SVG's elements.
             Use to prevent duplicate ids if several badges are embedded on the
             same page.
+        style: The style of the badge. Can be "flat" or "flat-square".
     """
     if measurer is None:
         measurer = (
@@ -244,6 +246,7 @@ def badge(
         right_image=right_image,
         center_image=center_image,
         id_suffix=id_suffix,
+        style=style,
     )
     xml = minidom.parseString(svg)
     _remove_blanks(xml)
